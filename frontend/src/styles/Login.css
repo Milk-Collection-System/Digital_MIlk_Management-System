@@ -1,10 +1,18 @@
+/* =========================================================
+   LOGIN PAGE
+   ========================================================= */
+
 .login-page {
   min-height: 100vh;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   background: linear-gradient(135deg, #f8fbff, #eaf5ff);
+
   padding: 30px;
+
   box-sizing: border-box;
 }
 
@@ -15,101 +23,264 @@
 
 .login-card {
   background: #ffffff;
+
   border-radius: 20px;
+
   padding: 40px;
+
   box-shadow: 0 20px 60px rgba(18, 59, 93, 0.1);
+
   border: 1px solid #e4edf5;
+
   box-sizing: border-box;
 }
 
+
+/* =========================================================
+   LOGO / TITLE
+   ========================================================= */
+
 .login-logo {
   text-align: center;
+
   margin-bottom: 30px;
 }
 
 .login-logo .milk-icon {
   font-size: 55px;
+
   margin-bottom: 10px;
 }
 
 .login-logo h1 {
   margin: 0;
-  font-size: 28px;
+
+  font-size: 32px;
+
+  font-weight: 800;
+
   color: #123b5d;
+
+  letter-spacing: -0.8px;
 }
 
 .login-logo p {
   margin-top: 8px;
-  color: #6b7280;
-  font-size: 16px;
+
+  color: #687783;
+
+  font-size: 15px;
+
+  font-weight: 700;
 }
+
+
+/* =========================================================
+   LOGIN FORM
+   ========================================================= */
 
 .login-form {
   display: flex;
+
   flex-direction: column;
+
   gap: 18px;
 }
 
 .login-field {
   display: flex;
+
   flex-direction: column;
+
   gap: 7px;
 }
 
 .login-field label {
   font-size: 14px;
+
   font-weight: 600;
+
   color: #374151;
 }
 
 .login-field input {
   width: 100%;
+
   box-sizing: border-box;
+
   padding: 13px 14px;
+
   border: 1px solid #d5dee8;
+
   border-radius: 9px;
+
   font-size: 15px;
+
   outline: none;
+
   transition: 0.2s;
 }
 
 .login-field input:focus {
   border-color: #17629a;
-  box-shadow: 0 0 0 3px rgba(23, 98, 154, 0.1);
+
+  box-shadow:
+    0 0 0 3px rgba(23, 98, 154, 0.1);
 }
+
+
+/* =========================================================
+   FORGOT PASSWORD
+   ========================================================= */
+
+.forgot-password {
+  display: flex;
+
+  justify-content: flex-end;
+
+  margin-top: -8px;
+
+  margin-bottom: -2px;
+}
+
+.forgot-password a {
+  color: #17629a;
+
+  text-decoration: none;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  transition: 0.2s;
+}
+
+.forgot-password a:hover {
+  color: #0d4f82;
+
+  text-decoration: underline;
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+   ========================================================= */
 
 .login-button {
   width: 100%;
+
   border: none;
+
   background: #123b5d;
+
   color: #ffffff;
+
   padding: 14px;
+
   border-radius: 9px;
+
   font-size: 16px;
+
   font-weight: 600;
+
   cursor: pointer;
-  margin-top: 5px;
+
+  margin-top: 2px;
+
+  transition: 0.2s ease;
 }
 
 .login-button:hover {
   background: #17629a;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 6px 15px rgba(18, 59, 93, 0.15);
 }
+
+
+/* =========================================================
+   CREATE NEW ACCOUNT
+   ========================================================= */
+
+.create-account-btn {
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  padding: 10px 16px;
+
+  margin-top: -7px;
+
+  border: 1px solid #b9ccdc;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: #174f78;
+
+  text-decoration: none;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  transition: 0.2s ease;
+}
+
+.create-account-btn:hover {
+  background: #f1f8fd;
+
+  border-color: #17629a;
+
+  color: #17629a;
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   ERROR MESSAGE
+   ========================================================= */
 
 .login-error {
   background: #fff1f1;
+
   color: #b42318;
+
   border: 1px solid #f3c2c2;
+
   padding: 10px 12px;
+
   border-radius: 8px;
+
   font-size: 14px;
 }
 
+
+/* =========================================================
+   BACK TO HOME
+   ========================================================= */
+
 .back-home {
   display: block;
+
   text-align: center;
+
   margin-top: 20px;
+
   color: #17629a;
+
   text-decoration: none;
+
   font-size: 14px;
 }
 
@@ -117,12 +288,26 @@
   text-decoration: underline;
 }
 
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
 @media (max-width: 500px) {
+
   .login-page {
     padding: 15px;
   }
 
   .login-card {
     padding: 28px 22px;
+  }
+
+  .login-logo h1 {
+    font-size: 28px;
+  }
+
+  .login-logo p {
+    font-size: 14px;
   }
 }

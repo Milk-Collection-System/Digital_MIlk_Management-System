@@ -23,6 +23,9 @@ import BillDetails from './pages/Bills/BillDetails';
 import Payments from './pages/Payments/Payments';
 import Reports from './pages/Reports/Reports';
 
+import Register from "./pages/Register";
+import ForgotPassword from "./pages/ForgotPassword";
+
 const Layout = ({ children }) => (
   <div className="app-shell">
     <Sidebar />
@@ -49,7 +52,11 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-
+        <Route path="/register" element={<Register />} />
+        <Route
+        path="/forgot-password"
+        element={<ForgotPassword />}
+        />
         {/* Home */}
         <Route
           path="/"
