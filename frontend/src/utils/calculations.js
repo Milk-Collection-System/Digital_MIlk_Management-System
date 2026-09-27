@@ -1,0 +1,1 @@
+export const calculateAmount=(litres,rate)=>Number(litres||0)*Number(rate||0);export const calculatePayable=(collection,deduction)=>Number(collection||0)-Number(deduction||0);export const average=a=>{a=a.map(Number).filter(Number.isFinite);return a.length?a.reduce((x,y)=>x+y,0)/a.length:0};
