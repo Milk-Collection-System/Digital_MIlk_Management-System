@@ -1,7 +1,10 @@
-import { Link } from 'react-router-dom';
-import '../styles/Home.css';
+import { Link } from "react-router-dom";
+import { useTheme } from "../ThemeContext";
+import "../styles/Home.css";
 
 export default function Home() {
+  const { darkMode, toggleTheme } = useTheme();
+
   return (
     <div className="home-page">
 
@@ -13,15 +16,42 @@ export default function Home() {
           <span>Digital Milk</span>
         </Link>
 
-        <div className="home-nav-links">
-          <a href="#home" className="active">Home</a>
-          <a href="#features">Features</a>
-          <a href="#about">About</a>
+       <div className="home-nav-links">
 
-          <Link to="/login" className="login-btn">
-            Login
-          </Link>
-        </div>
+  <a href="#home" className="nav-tab active">
+    Home
+  </a>
+
+  <a href="#features" className="nav-tab">
+    Features
+  </a>
+
+  <a href="#about" className="nav-tab">
+    About
+  </a>
+
+  {/* THEME TOGGLE */}
+  <button
+    type="button"
+    className="theme-toggle"
+    onClick={toggleTheme}
+    aria-label="Toggle theme"
+    title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+  >
+    <span className="theme-icon">
+      {darkMode ? "☀️" : "🌙"}
+    </span>
+
+    <span className="theme-toggle-text">
+      {darkMode ? "Light" : "Dark"}
+    </span>
+  </button>
+
+  <Link to="/login" className="login-btn">
+    Login
+  </Link>
+
+</div>
 
       </nav>
 
