@@ -13,24 +13,18 @@ html {
 
 .home-page {
   min-height: 100vh;
-  overflow-x: hidden;
 
-  color: #f1f3f4;
+  overflow-x: hidden;
 
   background:
     radial-gradient(
       circle at 80% 5%,
-      rgba(55, 157, 218, 0.10),
+      rgba(55, 157, 218, 0.08),
       transparent 30%
     ),
-    #111416;
+    var(--bg-primary);
 
-  font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+  color: var(--text-primary);
 }
 
 
@@ -52,9 +46,9 @@ html {
 
   z-index: 100;
 
-  background: rgba(17, 20, 22, 0.92);
+  background: var(--bg-primary);
 
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+   border-bottom: 1px solid var(--border-color);
 
   backdrop-filter: blur(16px);
 }
@@ -65,7 +59,7 @@ html {
 
   gap: 10px;
 
-  color: #70b9ea;
+  color: var(--accent);
 
   text-decoration: none;
 
@@ -92,18 +86,94 @@ html {
 .home-nav-links {
   display: flex;
   align-items: center;
-
-  gap: 30px;
+  gap: 8px;
 }
 
-.home-nav-links a {
-  color: #9ca3a7;
+.nav-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 75px;
+  height: 40px;
+
+  padding: 0 16px;
+
+  border-radius: 9px;
+
+  color: var(--text-secondary) !important;
 
   text-decoration: none;
 
-  font-size: 14px;
+  font-size: 13px;
 
-  transition: 0.25s ease;
+  font-weight: 500;
+
+  transition: all 0.25s ease;
+
+}
+
+.nav-tab:hover {
+  color: var(--accent) !important;
+
+  background: rgba(62, 157, 214, 0.10);
+
+  transform: translateY(-1px);
+}
+
+.nav-tab.active {
+  color: #ffffff !important;
+
+  background: var(--accent-dark);
+
+  box-shadow:
+    0 5px 15px rgba(13, 65, 104, 0.20);
+}
+
+.nav-tab.active:hover {
+  background: #125782;
+
+  color: #ffffff !important;
+}
+
+
+/* LOGIN BUTTON */
+
+.home-nav-links .login-btn {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-width: 75px;
+  height: 40px;
+
+  padding: 0 18px;
+
+  margin-left: 5px;
+
+  border-radius: 9px;
+
+  background: #0d4168;
+
+  color: #ffffff !important;
+
+  text-decoration: none;
+
+  font-size: 13px;
+
+  font-weight: 500;
+
+  transition: all 0.25s ease;
+}
+
+.home-nav-links .login-btn:hover {
+  background: #125782;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 5px 15px rgba(13, 65, 104, 0.20);
 }
 
 .home-nav-links a:hover,
@@ -131,6 +201,58 @@ html {
   transform: translateY(-2px);
 }
 
+/* =========================================================
+   THEME TOGGLE
+   ========================================================= */
+
+.theme-toggle {
+  height: 40px;
+
+  min-width: 78px;
+
+  padding: 0 12px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  border: 1px solid rgba(105, 182, 232, 0.25);
+
+  border-radius: 9px;
+
+  background: rgba(105, 182, 232, 0.08);
+
+  color: var(--text-secondary);
+
+  cursor: pointer;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  transition: all 0.25s ease;
+}
+
+.theme-toggle:hover {
+  background: rgba(105, 182, 232, 0.15);
+
+  border-color: var(--accent);
+
+  color: var(--accent);
+
+  transform: translateY(-1px);
+}
+
+.theme-icon {
+  font-size: 15px;
+
+  line-height: 1;
+}
+
+.theme-toggle-text {
+  font-size: 11px;
+}
 
 /* =========================================================
    HERO
@@ -177,7 +299,7 @@ html {
 
   background: rgba(59, 151, 208, 0.08);
 
-  color: #6db7e7;
+  color: var(--text-primary);
 
   font-size: 12px;
 
@@ -187,7 +309,7 @@ html {
 .hero-content h1 {
   margin: 0;
 
-  color: #e8e8e7;
+  color: var(--accent);
 
   font-size: clamp(52px, 6vw, 78px);
 
@@ -207,7 +329,7 @@ html {
 
   margin-top: 27px;
 
-  color: #9aa1a5;
+  color: var(--text-secondary);
 
   font-size: 17px;
 
@@ -354,14 +476,9 @@ html {
 
   border-radius: 24px;
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(34, 40, 44, 0.98),
-      rgba(20, 24, 27, 0.98)
-    );
+  background: var(--bg-card);
 
-  border: 1px solid rgba(77, 166, 221, 0.25);
+  background: var(--bg-card);
 
   box-shadow:
     0 35px 80px rgba(0, 0, 0, 0.40);
@@ -728,9 +845,9 @@ html {
 
   border-radius: 18px;
 
-  border: 1px solid rgba(255, 255, 255, 0.055);
+  border: 1px solid var(--border-color);
 
-  background: rgba(255, 255, 255, 0.022);
+   background: var(--bg-card);
 
   transition: 0.3s ease;
 }
@@ -738,9 +855,9 @@ html {
 .feature-card:hover {
   transform: translateY(-6px);
 
-  border-color: rgba(72, 164, 221, 0.28);
+  border-color: var(--accent);
 
-  background: rgba(51, 143, 201, 0.045);
+  background: var(--bg-card-hover);
 }
 
 .feature-icon {
@@ -813,15 +930,9 @@ html {
 
   border-radius: 26px;
 
-  background:
-    radial-gradient(
-      circle at 80% 50%,
-      rgba(40, 143, 204, 0.10),
-      transparent 40%
-    ),
-    #171b1e;
+   background: var(--bg-secondary);
 
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-color);
 }
 
 .about-content h2 {
@@ -951,15 +1062,9 @@ html {
 
   border-radius: 25px;
 
-  border: 1px solid rgba(76, 167, 222, 0.13);
+  border: 1px solid var(--border-color);
 
-  background:
-    radial-gradient(
-      circle at center,
-      rgba(43, 148, 209, 0.12),
-      transparent 55%
-    ),
-    #171b1e;
+  background: var(--bg-secondary);
 }
 
 .home-cta h2 {

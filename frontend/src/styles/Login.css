@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: center;
 
-  background: linear-gradient(135deg, #f8fbff, #eaf5ff);
+  background: var(--bg-primary);
 
   padding: 30px;
 
@@ -22,15 +22,15 @@
 }
 
 .login-card {
-  background: #ffffff;
+  background: var(--bg-card);
 
   border-radius: 20px;
 
   padding: 40px;
 
-  box-shadow: 0 20px 60px rgba(18, 59, 93, 0.1);
+  box-shadow: var(--shadow);  
 
-  border: 1px solid #e4edf5;
+  border: 1px solid var(--border-color);
 
   box-sizing: border-box;
 }
@@ -59,7 +59,7 @@
 
   font-weight: 800;
 
-  color: #123b5d;
+  color: var(--text-primary);
 
   letter-spacing: -0.8px;
 }
@@ -67,7 +67,7 @@
 .login-logo p {
   margin-top: 8px;
 
-  color: #687783;
+  color: var(--text-secondary);
 
   font-size: 15px;
 
@@ -100,7 +100,7 @@
 
   font-weight: 600;
 
-  color: #374151;
+  color: var(--text-secondary);
 }
 
 .login-field input {
@@ -112,6 +112,8 @@
 
   border: 1px solid #d5dee8;
 
+  border-color: var(--input-border);
+
   border-radius: 9px;
 
   font-size: 15px;
@@ -119,6 +121,11 @@
   outline: none;
 
   transition: 0.2s;
+
+  background: var(--input-bg);
+
+  color: var(--text-primary);
+
 }
 
 .login-field input:focus {
@@ -144,7 +151,7 @@
 }
 
 .forgot-password a {
-  color: #17629a;
+  color: var(--accent);
 
   text-decoration: none;
 
@@ -171,13 +178,15 @@
 
   border: none;
 
-  background: #123b5d;
+  background: var(--input-bg);  
 
-  color: #ffffff;
+  color: var(--text-primary);
 
   padding: 14px;
 
   border-radius: 9px;
+
+  border-color: var(--input-border);
 
   font-size: 16px;
 
@@ -191,7 +200,7 @@
 }
 
 .login-button:hover {
-  background: #17629a;
+  background: var(--accent-hover);
 
   transform: translateY(-1px);
 
@@ -223,9 +232,11 @@
 
   border-radius: 8px;
 
-  background: #ffffff;
+  border-color: var(--border-color);
 
-  color: #174f78;
+  background: transparent;
+
+  color: var(--accent);
 
   text-decoration: none;
 
