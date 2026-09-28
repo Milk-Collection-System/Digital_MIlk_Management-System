@@ -182,13 +182,21 @@
 
   border: none;
 
+<<<<<<< HEAD
   background: #123b5d !important;
 
   color: #ffffff !important;
+=======
+  background: var(--input-bg);  
+
+  color: var(--text-primary);
+>>>>>>> db5f96fc98b9f62a1c4286f29b7b0a3d41bc2b4b
 
   padding: 14px;
 
   border-radius: 9px;
+
+  border-color: var(--input-border);
 
   font-size: 16px;
 
@@ -202,9 +210,13 @@
 }
 
 .login-button:hover {
+<<<<<<< HEAD
   background: #17629a !important;
 
   color: #ffffff !important;
+=======
+  background: var(--accent-hover);
+>>>>>>> db5f96fc98b9f62a1c4286f29b7b0a3d41bc2b4b
 
   transform: translateY(-1px);
 
@@ -272,9 +284,17 @@
 
   border-radius: 8px;
 
+<<<<<<< HEAD
   background: transparent;
 
   color: #69b6e8 !important;
+=======
+  border-color: var(--border-color);
+
+  background: transparent;
+
+  color: var(--accent);
+>>>>>>> db5f96fc98b9f62a1c4286f29b7b0a3d41bc2b4b
 
   text-decoration: none;
 
