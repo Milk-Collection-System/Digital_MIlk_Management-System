@@ -9,12 +9,7 @@
 
   box-sizing: border-box;
 
-  background:
-    linear-gradient(
-      135deg,
-      #f8fbff,
-      #eaf5ff
-    );
+  background: var(--bg-primary);
 }
 
 .register-container {
@@ -23,9 +18,11 @@
 }
 
 .register-card {
-  background: #ffffff;
+  background: var(--bg-card);
 
   border: 1px solid #e4edf5;
+
+  border-color: var(--border-color);
 
   border-radius: 20px;
 
@@ -33,8 +30,7 @@
 
   box-sizing: border-box;
 
-  box-shadow:
-    0 20px 60px rgba(18, 59, 93, 0.10);
+  box-shadow: var(--shadow);
 }
 
 
@@ -55,7 +51,7 @@
 .register-logo h1 {
   margin: 0;
 
-  color: #123b5d;
+   color: var(--text-primary);
 
   font-size: 30px;
 
@@ -67,7 +63,7 @@
 .register-logo p {
   margin-top: 7px;
 
-  color: #687783;
+  color: var(--text-secondary);
 
   font-size: 15px;
 
@@ -94,7 +90,7 @@
 }
 
 .register-field label {
-  color: #374151;
+  color: var(--text-secondary);
 
   font-size: 13px;
 
@@ -110,7 +106,13 @@
 
   border: 1px solid #d5dee8;
 
+  border-color: var(--input-border);
+
   border-radius: 8px;
+
+  color: var(--text-secondary);
+
+  background: var(--input-bg);
 
   outline: none;
 
@@ -159,7 +161,7 @@
 
   border-radius: 9px;
 
-  background: #123b5d;
+  background: var(--accent-dark);
 
   color: #ffffff;
 
@@ -173,7 +175,7 @@
 }
 
 .register-button:hover {
-  background: #17629a;
+  background: var(--accent-hover);
 
   transform: translateY(-1px);
 

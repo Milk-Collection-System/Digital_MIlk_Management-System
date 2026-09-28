@@ -173,6 +173,10 @@
    LOGIN BUTTON
    ========================================================= */
 
+/* =========================================================
+   LOGIN BUTTON - DARK / LIGHT THEME
+   ========================================================= */
+
 .login-button {
   width: 100%;
 
@@ -190,22 +194,61 @@
 
   font-size: 16px;
 
-  font-weight: 600;
+  font-weight: 700;
 
   cursor: pointer;
 
   margin-top: 2px;
 
-  transition: 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 .login-button:hover {
+
+  color: #ffffff !important;
+
   background: var(--accent-hover);
 
   transform: translateY(-1px);
 
   box-shadow:
-    0 6px 15px rgba(18, 59, 93, 0.15);
+    0 6px 15px rgba(23, 98, 154, 0.25);
+}
+
+
+/* =========================================================
+   LIGHT MODE
+   ========================================================= */
+
+:root[data-theme="light"] .login-button {
+  background: #123b5d !important;
+
+  color: #ffffff !important;
+}
+
+:root[data-theme="light"] .login-button:hover {
+  background: #17629a !important;
+
+  color: #ffffff !important;
+}
+
+
+/* =========================================================
+   DARK MODE
+   ========================================================= */
+
+:root[data-theme="dark"] .login-button {
+  background: #1769a5 !important;
+
+  color: #ffffff !important;
+
+  border: 1px solid #2d8bc5;
+}
+
+:root[data-theme="dark"] .login-button:hover {
+  background: #2188c4 !important;
+
+  color: #ffffff !important;
 }
 
 
@@ -228,7 +271,7 @@
 
   margin-top: -7px;
 
-  border: 1px solid #b9ccdc;
+  border: 1px solid #52616d;
 
   border-radius: 8px;
 
@@ -244,36 +287,34 @@
 
   font-weight: 600;
 
-  transition: 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 .create-account-btn:hover {
+  background: rgba(105, 182, 232, 0.10);
+
+  border-color: #69b6e8;
+
+  color: #8bc9ef !important;
+}
+
+
+/* LIGHT MODE */
+
+:root[data-theme="light"] .create-account-btn {
+  border-color: #b9ccdc;
+
+  background: #ffffff;
+
+  color: #174f78 !important;
+}
+
+:root[data-theme="light"] .create-account-btn:hover {
   background: #f1f8fd;
 
   border-color: #17629a;
 
-  color: #17629a;
-
-  transform: translateY(-1px);
-}
-
-
-/* =========================================================
-   ERROR MESSAGE
-   ========================================================= */
-
-.login-error {
-  background: #fff1f1;
-
-  color: #b42318;
-
-  border: 1px solid #f3c2c2;
-
-  padding: 10px 12px;
-
-  border-radius: 8px;
-
-  font-size: 14px;
+  color: #17629a !important;
 }
 
 
