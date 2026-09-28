@@ -1,0 +1,124 @@
+/* =========================================================
+   ANIMATED ADMIN / USER / FARMER TOGGLE
+   ========================================================= */
+
+.role-section {
+  margin: -8px 0 22px;
+}
+
+.role-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.role-toggle {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+
+  padding: 4px;
+
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+
+  background: var(--bg-primary);
+
+  position: relative;
+}
+
+/* Individual buttons */
+
+.role-option {
+  position: relative;
+  z-index: 2;
+
+  min-height: 36px;
+  padding: 0 7px;
+
+  border: none;
+  border-radius: 7px;
+
+  background: transparent;
+
+  color: var(--text-secondary);
+
+  cursor: pointer;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 650;
+
+  transition:
+    color 0.25s ease,
+    transform 0.2s ease;
+}
+
+.role-option:hover {
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+/* Selected button */
+
+.role-option.active {
+  color: #ffffff;
+
+  background: var(--accent-dark);
+
+  box-shadow:
+    0 4px 12px var(--accent-shadow, rgba(23, 105, 165, 0.18));
+
+  animation: roleSelect 0.25s ease;
+}
+
+/* Small selection animation */
+
+@keyframes roleSelect {
+  0% {
+    transform: scale(0.94);
+  }
+
+  60% {
+    transform: scale(1.03);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Click feedback */
+
+.role-option:active {
+  transform: scale(0.94);
+}
+
+/* Light theme */
+
+:root[data-theme="light"] .role-option.active {
+  background: #123f64;
+  color: #ffffff;
+}
+
+/* Dark theme */
+
+:root[data-theme="dark"] .role-option.active {
+  background: #1769a5;
+  color: #ffffff;
+  border: 1px solid #2d8bc5;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 500px) {
+  .role-option {
+    min-height: 35px;
+    font-size: 11px;
+  }
+}

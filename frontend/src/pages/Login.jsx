@@ -1,8 +1,18 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import "../styles/Login.css";
+import "../styles/RoleToggle.css";
 
 export default function Login() {
-  // Keep your existing login/authentication logic here
+  const [role, setRole] = useState("user");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Authentication can be connected to your backend here.
+    // The selected role is available as: role
+    console.log("Login role:", role);
+  };
 
   return (
     <div className="login-page">
@@ -16,64 +26,76 @@ export default function Login() {
             <p>Management System</p>
           </div>
 
-          {/* LOGIN FORM */}
-          <form className="login-form">
+          {/* ROLE TOGGLE */}
+          <div className="role-section">
+            <span className="role-label">Login as</span>
 
-            {/* EMAIL */}
+            <div className="role-toggle" role="tablist" aria-label="Login role">
+              <button
+                type="button"
+                className={`role-option ${role === "admin" ? "active" : ""}`}
+                onClick={() => setRole("admin")}
+              >
+                Admin
+              </button>
+
+              <button
+                type="button"
+                className={`role-option ${role === "user" ? "active" : ""}`}
+                onClick={() => setRole("user")}
+              >
+                User
+              </button>
+
+              <button
+                type="button"
+                className={`role-option ${role === "farmer" ? "active" : ""}`}
+                onClick={() => setRole("farmer")}
+              >
+                Farmer
+              </button>
+            </div>
+          </div>
+
+          {/* LOGIN FORM */}
+          <form className="login-form" onSubmit={handleSubmit}>
+
             <div className="login-field">
               <label>Email</label>
-
               <input
                 type="email"
+                name="email"
                 placeholder="Enter your email"
+                autoComplete="email"
+                required
               />
             </div>
 
-
-            {/* PASSWORD */}
             <div className="login-field">
               <label>Password</label>
-
               <input
                 type="password"
+                name="password"
                 placeholder="Enter your password"
+                autoComplete="current-password"
+                required
               />
             </div>
 
-
-            {/* FORGOT PASSWORD */}
             <div className="forgot-password">
-              <Link to="/forgot-password">
-                Forgot Password?
-              </Link>
+              <Link to="/forgot-password">Forgot Password?</Link>
             </div>
 
-
-            {/* LOGIN */}
-            <button
-              type="submit"
-              className="login-button"
-            >
-              Login
+            <button type="submit" className="login-button">
+              Login as {role.charAt(0).toUpperCase() + role.slice(1)}
             </button>
 
-
-            {/* CREATE ACCOUNT */}
-            <Link
-              to="/register"
-              className="create-account-btn"
-            >
+            <Link to="/register" className="create-account-btn">
               Create New Account
             </Link>
-
           </form>
 
-
-          {/* BACK TO HOME */}
-          <Link
-            to="/"
-            className="back-home"
-          >
+          <Link to="/" className="back-home">
             ← Back to Home
           </Link>
 

@@ -4,15 +4,11 @@
 
 .login-page {
   min-height: 100vh;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   background: var(--bg-primary);
-
   padding: 30px;
-
   box-sizing: border-box;
 }
 
@@ -23,18 +19,12 @@
 
 .login-card {
   background: var(--bg-card);
-
   border-radius: 20px;
-
   padding: 40px;
-
-  box-shadow: var(--shadow);  
-
+  box-shadow: var(--shadow);
   border: 1px solid var(--border-color);
-
   box-sizing: border-box;
 }
-
 
 /* =========================================================
    LOGO / TITLE
@@ -42,38 +32,28 @@
 
 .login-logo {
   text-align: center;
-
   margin-bottom: 30px;
 }
 
 .login-logo .milk-icon {
   font-size: 55px;
-
   margin-bottom: 10px;
 }
 
 .login-logo h1 {
   margin: 0;
-
   font-size: 32px;
-
   font-weight: 800;
-
   color: var(--text-primary);
-
   letter-spacing: -0.8px;
 }
 
 .login-logo p {
   margin-top: 8px;
-
   color: var(--text-secondary);
-
   font-size: 15px;
-
   font-weight: 700;
 }
-
 
 /* =========================================================
    LOGIN FORM
@@ -81,60 +61,98 @@
 
 .login-form {
   display: flex;
-
   flex-direction: column;
-
   gap: 18px;
 }
 
 .login-field {
   display: flex;
-
   flex-direction: column;
-
   gap: 7px;
 }
 
 .login-field label {
   font-size: 14px;
-
   font-weight: 600;
-
   color: var(--text-secondary);
 }
 
 .login-field input {
   width: 100%;
-
   box-sizing: border-box;
-
   padding: 13px 14px;
-
-  border: 1px solid #d5dee8;
-
-  border-color: var(--input-border);
-
+  border: 1px solid var(--input-border);
   border-radius: 9px;
-
-  font-size: 15px;
-
   outline: none;
-
-  transition: 0.2s;
-
+  font-size: 15px;
+  font-weight: 500;
   background: var(--input-bg);
-
   color: var(--text-primary);
+  caret-color: var(--accent);
+  transition: 0.2s ease;
+}
 
+.login-field input::placeholder {
+  color: #8a969f;
+  opacity: 1;
 }
 
 .login-field input:focus {
-  border-color: #17629a;
-
-  box-shadow:
-    0 0 0 3px rgba(23, 98, 154, 0.1);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(23, 105, 165, 0.12);
 }
 
+/* =========================================================
+   DARK MODE INPUT FIX
+   ========================================================= */
+
+:root[data-theme="dark"] .login-field input {
+  background: #252c30;
+  color: #ffffff;
+  border-color: #465159;
+}
+
+:root[data-theme="dark"] .login-field input::placeholder {
+  color: #9ba6ad;
+  opacity: 1;
+}
+
+:root[data-theme="dark"] .login-field input:focus {
+  background: #293136;
+  color: #ffffff;
+  border-color: #69b6e8;
+  box-shadow: 0 0 0 3px rgba(105, 182, 232, 0.14);
+}
+
+/* Chrome / Edge autofill */
+:root[data-theme="dark"] .login-field input:-webkit-autofill,
+:root[data-theme="dark"] .login-field input:-webkit-autofill:hover,
+:root[data-theme="dark"] .login-field input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #ffffff;
+  caret-color: #ffffff;
+  box-shadow: 0 0 0 1000px #252c30 inset;
+  border: 1px solid #465159;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+:root[data-theme="light"] .login-field input {
+  background: #ffffff;
+  color: #1f2937;
+  border-color: #d5dee8;
+}
+
+:root[data-theme="light"] .login-field input::placeholder {
+  color: #8a949d;
+}
+
+:root[data-theme="light"] .login-field input:-webkit-autofill,
+:root[data-theme="light"] .login-field input:-webkit-autofill:hover,
+:root[data-theme="light"] .login-field input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #1f2937;
+  caret-color: #1f2937;
+  box-shadow: 0 0 0 1000px #ffffff inset;
+  border: 1px solid #d5dee8;
+}
 
 /* =========================================================
    FORGOT PASSWORD
@@ -142,115 +160,69 @@
 
 .forgot-password {
   display: flex;
-
   justify-content: flex-end;
-
   margin-top: -8px;
-
   margin-bottom: -2px;
 }
 
 .forgot-password a {
   color: var(--accent);
-
   text-decoration: none;
-
   font-size: 13px;
-
   font-weight: 600;
-
   transition: 0.2s;
 }
 
 .forgot-password a:hover {
-  color: #0d4f82;
-
+  color: var(--accent);
   text-decoration: underline;
 }
-
 
 /* =========================================================
    LOGIN BUTTON
    ========================================================= */
 
-/* =========================================================
-   LOGIN BUTTON - DARK / LIGHT THEME
-   ========================================================= */
-
 .login-button {
   width: 100%;
-
   border: none;
-
-  background: var(--input-bg);  
-
-  color: var(--text-primary);
-
   padding: 14px;
-
   border-radius: 9px;
-
-  border-color: var(--input-border);
-
   font-size: 16px;
-
   font-weight: 700;
-
   cursor: pointer;
-
   margin-top: 2px;
-
+  background: var(--accent-dark);
+  color: #ffffff !important;
   transition: all 0.25s ease;
 }
 
 .login-button:hover {
-
   color: #ffffff !important;
-
-  background: var(--accent-hover);
-
+  background: var(--accent) !important;
   transform: translateY(-1px);
-
-  box-shadow:
-    0 6px 15px rgba(23, 98, 154, 0.25);
+  box-shadow: 0 6px 15px rgba(23, 98, 154, 0.25);
 }
-
-
-/* =========================================================
-   LIGHT MODE
-   ========================================================= */
 
 :root[data-theme="light"] .login-button {
   background: #123b5d !important;
-
   color: #ffffff !important;
 }
 
 :root[data-theme="light"] .login-button:hover {
   background: #17629a !important;
-
   color: #ffffff !important;
 }
 
-
-/* =========================================================
-   DARK MODE
-   ========================================================= */
-
 :root[data-theme="dark"] .login-button {
   background: #1769a5 !important;
-
   color: #ffffff !important;
-
   border: 1px solid #2d8bc5;
 }
 
 :root[data-theme="dark"] .login-button:hover {
   background: #2188c4 !important;
-
   color: #ffffff !important;
 }
-
 
 /* =========================================================
    CREATE NEW ACCOUNT
@@ -258,65 +230,39 @@
 
 .create-account-btn {
   width: 100%;
-
   display: flex;
-
   align-items: center;
-
   justify-content: center;
-
   box-sizing: border-box;
-
   padding: 10px 16px;
-
   margin-top: -7px;
-
-  border: 1px solid #52616d;
-
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-
-  border-color: var(--border-color);
-
   background: transparent;
-
-  color: var(--accent);
-
+  color: var(--accent) !important;
   text-decoration: none;
-
   font-size: 13px;
-
   font-weight: 600;
-
   transition: all 0.25s ease;
 }
 
 .create-account-btn:hover {
   background: rgba(105, 182, 232, 0.10);
-
-  border-color: #69b6e8;
-
-  color: #8bc9ef !important;
+  border-color: var(--accent);
+  color: var(--accent) !important;
 }
-
-
-/* LIGHT MODE */
 
 :root[data-theme="light"] .create-account-btn {
   border-color: #b9ccdc;
-
   background: #ffffff;
-
   color: #174f78 !important;
 }
 
 :root[data-theme="light"] .create-account-btn:hover {
   background: #f1f8fd;
-
   border-color: #17629a;
-
   color: #17629a !important;
 }
-
 
 /* =========================================================
    BACK TO HOME
@@ -324,15 +270,10 @@
 
 .back-home {
   display: block;
-
   text-align: center;
-
   margin-top: 20px;
-
-  color: #17629a;
-
+  color: var(--accent);
   text-decoration: none;
-
   font-size: 14px;
 }
 
@@ -340,13 +281,11 @@
   text-decoration: underline;
 }
 
-
 /* =========================================================
    MOBILE
    ========================================================= */
 
 @media (max-width: 500px) {
-
   .login-page {
     padding: 15px;
   }
