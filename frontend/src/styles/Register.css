@@ -22,9 +22,9 @@
 }
 
 .register-card {
-  width: 100%;
+  background: #ffffff;
 
-  background: var(--bg-card);
+  border: 1px solid #e4edf5;
 
   border: 1px solid var(--border-color);
   border-radius: 20px;
@@ -54,7 +54,7 @@
 .register-logo h1 {
   margin: 0;
 
-  color: var(--text-primary);
+  color: #123b5d;
 
   font-size: 30px;
   font-weight: 800;
@@ -112,9 +112,13 @@
 
   box-sizing: border-box;
 
-  border: 1px solid var(--input-border);
+  border: 1px solid #d5dee8;
 
   border-radius: 8px;
+
+  color: var(--text-secondary);
+
+  background: var(--input-bg);
 
   outline: none;
 
@@ -342,7 +346,7 @@
 }
 
 .register-button:hover {
-  background: var(--accent);
+  background: #17629a;
 
   transform: translateY(-1px);
 
