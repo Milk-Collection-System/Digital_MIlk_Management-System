@@ -1,75 +1,104 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
-import Sidebar from './components/Sidebar';
-import Navbar from './components/Navbar';
-import ProtectedRoute from './components/ProtectedRoute';
+import Sidebar from "./components/Sidebar";
+import Navbar from "./components/Navbar";
+import ProtectedRoute from "./components/ProtectedRoute";
 
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
-
-import Members from './pages/Members/Members';
-import AddMember from './pages/Members/AddMember';
-import MemberDetails from './pages/Members/MemberDetails';
-
-import MilkCollection from './pages/MilkCollection/MilkCollection';
-import AddMilkCollection from './pages/MilkCollection/AddMilkCollection';
-
-import MilkRates from './pages/Rates/MilkRates';
-
-import Bills from './pages/Bills/Bills';
-import BillDetails from './pages/Bills/BillDetails';
-
-import Payments from './pages/Payments/Payments';
-import Reports from './pages/Reports/Reports';
-
+import Home from "./pages/Home";
+import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
 
+import Dashboard from "./pages/Dashboard";
+
+import MilkCollection from "./pages/MilkCollection/MilkCollection";
+import AddMilkCollection from "./pages/MilkCollection/AddMilkCollection";
+
+import Payments from "./pages/Payments/Payments";
+import Reports from "./pages/Reports/Reports";
+
+
 const Layout = ({ children }) => (
+
   <div className="app-shell">
+
     <Sidebar />
 
     <div className="main-area">
+
       <Navbar />
 
       <main className="content">
         {children}
       </main>
+
     </div>
+
   </div>
+
 );
 
-const ProtectedLayout = ({ children }) => (
-  <ProtectedRoute>
+
+const ProtectedLayout = ({
+  children,
+  allowedRoles,
+}) => (
+
+  <ProtectedRoute
+    allowedRoles={allowedRoles}
+  >
+
     <Layout>
       {children}
     </Layout>
+
   </ProtectedRoute>
+
 );
 
+
 export default function App() {
+
   return (
+
     <BrowserRouter>
+
       <Routes>
-        <Route path="/register" element={<Register />} />
+
+        {/* =====================
+            PUBLIC
+        ====================== */}
+
         <Route
-        path="/forgot-password"
-        element={<ForgotPassword />}
-        />
-        {/* Home */}
-        <Route
-          path="/"
+          path="/home"
           element={<Home />}
         />
 
-        {/* Login */}
         <Route
           path="/login"
           element={<Login />}
         />
 
-        {/* Dashboard */}
+        <Route
+          path="/register"
+          element={<Register />}
+        />
+
+        <Route
+          path="/forgot-password"
+          element={<ForgotPassword />}
+        />
+
+
+        {/* =====================
+            DASHBOARD
+        ====================== */}
+
         <Route
           path="/dashboard"
           element={
@@ -79,39 +108,21 @@ export default function App() {
           }
         />
 
-        {/* Members */}
-        <Route
-          path="/members"
-          element={
-            <ProtectedLayout>
-              <Members />
-            </ProtectedLayout>
-          }
-        />
 
-        <Route
-          path="/members/add"
-          element={
-            <ProtectedLayout>
-              <AddMember />
-            </ProtectedLayout>
-          }
-        />
+        {/* =====================
+            MILK COLLECTION
+        ====================== */}
 
-        <Route
-          path="/members/:id"
-          element={
-            <ProtectedLayout>
-              <MemberDetails />
-            </ProtectedLayout>
-          }
-        />
-
-        {/* Milk Collection */}
         <Route
           path="/milk-collection"
           element={
-            <ProtectedLayout>
+            <ProtectedLayout
+              allowedRoles={[
+                "admin",
+                "user",
+                "farmer",
+              ]}
+            >
               <MilkCollection />
             </ProtectedLayout>
           }
@@ -120,42 +131,22 @@ export default function App() {
         <Route
           path="/milk-collection/add"
           element={
-            <ProtectedLayout>
+            <ProtectedLayout
+              allowedRoles={[
+                "admin",
+                "user",
+              ]}
+            >
               <AddMilkCollection />
             </ProtectedLayout>
           }
         />
 
-        {/* Milk Rates */}
-        <Route
-          path="/rates"
-          element={
-            <ProtectedLayout>
-              <MilkRates />
-            </ProtectedLayout>
-          }
-        />
 
-        {/* Bills */}
-        <Route
-          path="/bills"
-          element={
-            <ProtectedLayout>
-              <Bills />
-            </ProtectedLayout>
-          }
-        />
+        {/* =====================
+            PAYMENTS
+        ====================== */}
 
-        <Route
-          path="/bills/:id"
-          element={
-            <ProtectedLayout>
-              <BillDetails />
-            </ProtectedLayout>
-          }
-        />
-
-        {/* Payments */}
         <Route
           path="/payments"
           element={
@@ -165,23 +156,42 @@ export default function App() {
           }
         />
 
-        {/* Reports */}
+
+        {/* =====================
+            REPORTS
+        ====================== */}
+
         <Route
           path="/reports"
           element={
-            <ProtectedLayout>
+            <ProtectedLayout
+              allowedRoles={[
+                "admin",
+              ]}
+            >
               <Reports />
             </ProtectedLayout>
           }
         />
 
-        {/* Unknown URL */}
+
+        {/* =====================
+            UNKNOWN
+        ====================== */}
+
         <Route
           path="*"
-          element={<Navigate to="/" replace />}
+          element={
+            <Navigate
+              to="/"
+              replace
+            />
+          }
         />
 
       </Routes>
+
     </BrowserRouter>
+
   );
 }
