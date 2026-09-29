@@ -1,0 +1,112 @@
+.dashboard-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(220px, 1fr));
+
+  gap: 18px;
+}
+
+.dashboard-card {
+  background: var(--bg-card);
+
+  border: 1px solid var(--border-color);
+
+  border-radius: 14px;
+
+  padding: 20px;
+
+  box-shadow: var(--shadow);
+
+  transition: 0.2s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-2px);
+}
+
+.dashboard-card-title {
+  color: var(--text-secondary);
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+.dashboard-card-value {
+  margin-top: 8px;
+
+  color: var(--text-primary);
+
+  font-size: 28px;
+
+  font-weight: 800;
+}
+
+.topbar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.role-badge {
+  padding: 5px 10px;
+
+  border-radius: 20px;
+
+  background: var(--accent);
+
+  color: white;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+}
+
+.sidebar-account {
+  margin-top: auto;
+  padding: 15px;
+}
+
+.account-role {
+  margin-bottom: 10px;
+
+  color: #cfe3f2;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+.logout-button {
+  width: 100%;
+
+  padding: 9px;
+
+  border: 1px solid #ffffff33;
+
+  border-radius: 8px;
+
+  background: transparent;
+
+  color: white;
+
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background: #ffffff18;
+}
+
+@media (max-width: 800px) {
+
+  .sidebar-account {
+    display: none;
+  }
+
+  .topbar-user span:first-child {
+    display: none;
+  }
+
+}
