@@ -24,7 +24,6 @@ import Reports from "./pages/Reports/Reports";
 
 
 const Layout = ({ children }) => (
-
   <div className="app-shell">
 
     <Sidebar />
@@ -40,7 +39,6 @@ const Layout = ({ children }) => (
     </div>
 
   </div>
-
 );
 
 
@@ -48,27 +46,34 @@ const ProtectedLayout = ({
   children,
   allowedRoles,
 }) => (
-
-  <ProtectedRoute
-    allowedRoles={allowedRoles}
-  >
-
+  <ProtectedRoute allowedRoles={allowedRoles}>
     <Layout>
       {children}
     </Layout>
-
   </ProtectedRoute>
-
 );
 
 
 export default function App() {
-
   return (
-
     <BrowserRouter>
 
       <Routes>
+
+        {/* =====================
+            ROOT
+        ====================== */}
+
+        <Route
+          path="/"
+          element={
+            <Navigate
+              to="/home"
+              replace
+            />
+          }
+        />
+
 
         {/* =====================
             PUBLIC
@@ -176,14 +181,14 @@ export default function App() {
 
 
         {/* =====================
-            UNKNOWN
+            UNKNOWN URL
         ====================== */}
 
         <Route
           path="*"
           element={
             <Navigate
-              to="/"
+              to="/home"
               replace
             />
           }
@@ -192,6 +197,5 @@ export default function App() {
       </Routes>
 
     </BrowserRouter>
-
   );
 }
