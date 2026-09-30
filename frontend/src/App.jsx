@@ -42,6 +42,11 @@ const Layout = ({ children }) => (
 );
 
 
+const ProtectedLayout = ({
+  children,
+  allowedRoles,
+}) => (
+=======
 const ProtectedLayout = ({ children, allowedRoles }) => (
   <ProtectedRoute allowedRoles={allowedRoles}>
     <Layout>
@@ -56,6 +61,21 @@ export default function App() {
     <BrowserRouter>
 
       <Routes>
+
+        {/* =====================
+            ROOT
+        ====================== */}
+
+        <Route
+          path="/"
+          element={
+            <Navigate
+              to="/home"
+              replace
+            />
+          }
+        />
+
 
         {/* =====================
             PUBLIC
@@ -177,7 +197,7 @@ export default function App() {
           path="*"
           element={
             <Navigate
-              to="/"
+              to="/home"
               replace
             />
           }
