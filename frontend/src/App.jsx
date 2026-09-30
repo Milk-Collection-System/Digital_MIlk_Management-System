@@ -46,6 +46,8 @@ const ProtectedLayout = ({
   children,
   allowedRoles,
 }) => (
+=======
+const ProtectedLayout = ({ children, allowedRoles }) => (
   <ProtectedRoute allowedRoles={allowedRoles}>
     <Layout>
       {children}
@@ -79,6 +81,13 @@ export default function App() {
             PUBLIC
         ====================== */}
 
+        {/* Main website */}
+        <Route
+          path="/"
+          element={<Home />}
+        />
+
+        {/* Optional /home URL */}
         <Route
           path="/home"
           element={<Home />}
