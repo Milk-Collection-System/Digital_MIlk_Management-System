@@ -1,89 +1,147 @@
-/* =========================================================
-   DIGITAL MILK GLOBAL THEME
-   ========================================================= */
+/* =========================================
+   GLOBAL RESET
+========================================= */
 
-:root {
-  --bg-primary: #111416;
-  --bg-secondary: #171b1e;
-  --bg-card: #1d2327;
-  --bg-card-hover: #222a2f;
-
-  --text-primary: #f1f3f4;
-  --text-secondary: #aeb7bd;
-  --text-muted: #737d83;
-
-  --border-color: rgba(255, 255, 255, 0.08);
-
-  --accent: #69b6e8;
-  --accent-dark: #0d4168;
-  --accent-hover: #125782;
-
-  --success: #55b98b;
-
-  --input-bg: #ffffff;
-  --input-border: #d5dee8;
-
-  --shadow:
-    0 20px 60px rgba(0, 0, 0, 0.35);
+* {
+  box-sizing: border-box;
 }
-
-
-/* =========================================================
-   LIGHT THEME
-   ========================================================= */
-
-:root[data-theme="light"] {
-  --bg-primary: #f5f9fc;
-  --bg-secondary: #ffffff;
-  --bg-card: #ffffff;
-  --bg-card-hover: #f1f7fb;
-
-  --text-primary: #123b5d;
-  --text-secondary: #4f6270;
-  --text-muted: #71808c;
-
-  --border-color: #dce7ef;
-
-  --accent: #1769a5;
-  --accent-dark: #123b5d;
-  --accent-hover: #0f5689;
-
-  --success: #218557;
-
-  --input-bg: #ffffff;
-  --input-border: #d5dee8;
-
-  --shadow:
-    0 20px 60px rgba(18, 59, 93, 0.10);
-}
-
-
-/* =========================================================
-   GLOBAL
-   ========================================================= */
 
 html,
 body,
 #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
   min-height: 100%;
 }
 
 body {
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif;
+
+  background: #f5f7fb;
+  color: #172033;
+}
+
+
+/* =========================================
+   APPLICATION LAYOUT
+========================================= */
+
+.app-shell {
+  width: 100%;
+  min-height: 100vh;
+  background: #f5f7fb;
+}
+
+
+/* =========================================
+   MAIN AREA
+========================================= */
+
+.main-area {
+  margin-left: 250px;
+
+  width: calc(100% - 250px);
+
+  min-height: 100vh;
+
+  position: relative;
+
+  transition:
+    margin-left 0.25s ease,
+    width 0.25s ease;
+}
+
+
+/* =========================================
+   COLLAPSED SIDEBAR LAYOUT
+========================================= */
+
+.app-shell.sidebar-collapsed .main-area {
+  margin-left: 78px;
+
+  width: calc(100% - 78px);
+}
+
+
+/* =========================================
+   PAGE CONTENT
+========================================= */
+
+.content {
+  width: 100%;
+
+  min-height: calc(100vh - 72px);
+
+  padding: 96px 28px 32px;
+
+  background: #f5f7fb;
+}
+
+
+/* =========================================
+   COMMON CONTAINER
+========================================= */
+
+.container-fluid {
+  width: 100%;
+  max-width: 1600px;
+
+  margin: 0 auto;
+}
+
+
+/* =========================================
+   PAGE TITLE
+========================================= */
+
+.page-title {
   margin: 0;
 
-  background: var(--bg-primary);
+  font-size: 28px;
+  font-weight: 700;
 
-  color: var(--text-primary);
-
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+  color: #172033;
 }
 
-* {
-  transition:
-    background-color 0.25s ease,
-    border-color 0.25s ease,
-    color 0.25s ease;
+
+/* =========================================
+   CARD
+========================================= */
+
+.card {
+  background: #ffffff;
+
+  border: 1px solid #e7ebf2;
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 4px 16px rgba(20, 40, 70, 0.05);
 }
-body{margin:0;background:#f5f7fb;color:#212529;font-family:Arial,sans-serif}.app-shell{display:flex;min-height:100vh}.sidebar{width:240px;background:#123b5d;color:#fff;flex-shrink:0}.brand{padding:22px 18px;font-size:20px;font-weight:700;border-bottom:1px solid #ffffff20}.nav-link{color:#dbe8f2!important;margin:4px 10px;border-radius:8px}.nav-link:hover,.nav-link.active{background:#1e567f}.main-area{flex:1}.topbar{height:64px;background:#fff;border-bottom:1px solid #e6e9ef;display:flex;align-items:center;justify-content:space-between;padding:0 24px}.content{padding:24px}.card{border:0;box-shadow:0 2px 12px #14283c12}.stat-value{font-size:28px;font-weight:700}.page-title{font-weight:700}.bill-box{background:#fff;max-width:950px;margin:auto;padding:28px;box-shadow:0 2px 14px #0001}@media(max-width:800px){.sidebar{width:70px}.brand{font-size:0}.nav-link span{display:none}.content{padding:15px}}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 768px) {
+
+  .main-area {
+    margin-left: 78px;
+
+    width: calc(100% - 78px);
+  }
+
+  .content {
+    padding: 88px 16px 24px;
+  }
+
+}

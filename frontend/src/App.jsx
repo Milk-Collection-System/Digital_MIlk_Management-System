@@ -5,6 +5,8 @@ import {
   Navigate,
 } from "react-router-dom";
 
+import { useState } from "react";
+
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -23,49 +25,64 @@ import Payments from "./pages/Payments/Payments";
 import Reports from "./pages/Reports/Reports";
 
 
-const Layout = ({ children }) => (
-  <div className="app-shell">
+/* =====================================
+   MAIN LAYOUT
+===================================== */
 
-    <Sidebar />
+const Layout = ({ children }) => {
+  const [collapsed, setCollapsed] = useState(false);
 
-    <div className="main-area">
+  return (
+    <div
+      className={`app-shell ${
+        collapsed ? "sidebar-collapsed" : ""
+      }`}
+    >
+      <Sidebar
+        collapsed={collapsed}
+        setCollapsed={setCollapsed}
+      />
 
-      <Navbar />
+      <div className="main-area">
+        <Navbar
+          collapsed={collapsed}
+          setCollapsed={setCollapsed}
+        />
 
-      <main className="content">
-        {children}
-      </main>
-
+        <main className="content">
+          {children}
+        </main>
+      </div>
     </div>
+  );
+};
 
-  </div>
-);
+
+/* =====================================
+   PROTECTED LAYOUT
+===================================== */
+
+const ProtectedLayout = ({ children, allowedRoles }) => {
+  return (
+    <ProtectedRoute allowedRoles={allowedRoles}>
+      <Layout>
+        {children}
+      </Layout>
+    </ProtectedRoute>
+  );
+};
 
 
-const ProtectedLayout = ({
-  children,
-  allowedRoles,
-}) => (
-=======
-const ProtectedLayout = ({ children, allowedRoles }) => (
-  <ProtectedRoute allowedRoles={allowedRoles}>
-    <Layout>
-      {children}
-    </Layout>
-  </ProtectedRoute>
-);
-
+/* =====================================
+   APP
+===================================== */
 
 export default function App() {
   return (
     <BrowserRouter>
-
       <Routes>
 
-        {/* =====================
-            ROOT
-        ====================== */}
-
+        {/* ROOT */}
         <Route
           path="/"
           element={
@@ -76,18 +93,8 @@ export default function App() {
           }
         />
 
+        {/* PUBLIC PAGES */}
 
-        {/* =====================
-            PUBLIC
-        ====================== */}
-
-        {/* Main website */}
-        <Route
-          path="/"
-          element={<Home />}
-        />
-
-        {/* Optional /home URL */}
         <Route
           path="/home"
           element={<Home />}
@@ -108,10 +115,7 @@ export default function App() {
           element={<ForgotPassword />}
         />
 
-
-        {/* =====================
-            DASHBOARD
-        ====================== */}
+        {/* DASHBOARD */}
 
         <Route
           path="/dashboard"
@@ -122,10 +126,7 @@ export default function App() {
           }
         />
 
-
-        {/* =====================
-            MILK COLLECTION
-        ====================== */}
+        {/* MILK COLLECTION */}
 
         <Route
           path="/milk-collection"
@@ -156,10 +157,7 @@ export default function App() {
           }
         />
 
-
-        {/* =====================
-            PAYMENTS
-        ====================== */}
+        {/* PAYMENTS */}
 
         <Route
           path="/payments"
@@ -170,10 +168,7 @@ export default function App() {
           }
         />
 
-
-        {/* =====================
-            REPORTS
-        ====================== */}
+        {/* REPORTS */}
 
         <Route
           path="/reports"
@@ -188,10 +183,7 @@ export default function App() {
           }
         />
 
-
-        {/* =====================
-            UNKNOWN URL
-        ====================== */}
+        {/* UNKNOWN URL */}
 
         <Route
           path="*"
@@ -204,7 +196,6 @@ export default function App() {
         />
 
       </Routes>
-
     </BrowserRouter>
   );
 }

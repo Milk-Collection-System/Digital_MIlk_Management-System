@@ -1,27 +1,54 @@
-export default function Navbar() {
+import "../styles/Navbar.css";
 
-  const role =
-    localStorage.getItem("role") || "user";
+export default function Navbar({ collapsed, setCollapsed }) {
 
   const userName =
     localStorage.getItem("userName") || "User";
 
+  const role =
+    localStorage.getItem("role") || "user";
+
   return (
-    <header className="topbar">
+    <header className="top-navbar">
 
-      <strong>
+      {/* SIDEBAR TOGGLE */}
+
+      <button
+        className="sidebar-toggle"
+        onClick={() => setCollapsed(!collapsed)}
+        title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+      >
+        {collapsed ? "☰" : "☰"}
+      </button>
+
+
+      {/* TITLE */}
+
+      <div className="navbar-title">
         Digital Milk Management System
-      </strong>
+      </div>
 
-      <div className="topbar-user">
 
-        <span>
-          {userName}
-        </span>
+      {/* USER */}
 
-        <span className="role-badge">
-          {role}
-        </span>
+      <div className="navbar-user">
+
+        <div className="navbar-user-info">
+
+          <div className="navbar-user-name">
+            {userName}
+          </div>
+
+          <div className="navbar-user-role">
+            {role}
+          </div>
+
+        </div>
+
+
+        <div className="navbar-avatar">
+          {userName.charAt(0).toUpperCase()}
+        </div>
 
       </div>
 

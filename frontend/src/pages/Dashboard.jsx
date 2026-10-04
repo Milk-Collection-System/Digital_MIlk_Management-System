@@ -1,98 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { dashboardApi } from "../services/api";
 import "../styles/Dashboard.css";
-
-function Icon({ type }) {
-  const icons = {
-    users: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-        <circle cx="9" cy="7" r="4" />
-        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-      </svg>
-    ),
-
-    farmer: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M3 21h18" />
-        <path d="M5 21V9l7-5 7 5v12" />
-        <path d="M9 21v-5h6v5" />
-        <path d="M9 10h.01" />
-        <path d="M15 10h.01" />
-      </svg>
-    ),
-
-    milk: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M8 2h8" />
-        <path d="M9 2v5l-4 7a6 6 0 0 0 5.2 9h3.6A6 6 0 0 0 19 14l-4-7V2" />
-        <path d="M7 13h10" />
-      </svg>
-    ),
-
-    money: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <rect x="2" y="5" width="20" height="14" rx="2" />
-        <circle cx="12" cy="12" r="3" />
-        <path d="M6 9h.01M18 15h.01" />
-      </svg>
-    ),
-
-    payment: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M20 7H4a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Z" />
-        <path d="M16 13h.01" />
-        <path d="M2 10h20" />
-      </svg>
-    ),
-
-    plus: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M12 5v14M5 12h14" />
-      </svg>
-    ),
-
-    arrow: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M5 12h14" />
-        <path d="m13 6 6 6-6 6" />
-      </svg>
-    ),
-
-    refresh: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M20 11a8.1 8.1 0 0 0-15.5-2M4 5v4h4" />
-        <path d="M4 13a8.1 8.1 0 0 0 15.5 2M20 19v-4h-4" />
-      </svg>
-    ),
-  };
-
-  return icons[type] || null;
-}
-
-function StatCard({ icon, title, value, subtitle, accent }) {
-  return (
-    <div className={`dm-stat-card ${accent || ""}`}>
-      <div className="dm-stat-top">
-        <div className="dm-stat-icon">
-          <Icon type={icon} />
-        </div>
-
-        <span className="dm-stat-label">{title}</span>
-      </div>
-
-      <div className="dm-stat-value">{value}</div>
-
-      {subtitle && (
-        <div className="dm-stat-subtitle">
-          {subtitle}
-        </div>
-      )}
-    </div>
-  );
-}
 
 export default function Dashboard() {
   const role = localStorage.getItem("role") || "user";
@@ -110,10 +18,6 @@ export default function Dashboard() {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    loadDashboard();
-  }, [role]);
 
   const loadDashboard = async () => {
     try {
@@ -147,37 +51,44 @@ export default function Dashboard() {
     }
   };
 
-  const roleTitle =
-    role === "admin"
-      ? "Administrator"
-      : role === "farmer"
-        ? "Farmer"
-        : "Collection Manager";
+  useEffect(() => {
+    loadDashboard();
+  }, [role]);
+
+  /* =========================
+     LOADING
+  ========================= */
 
   if (loading) {
     return (
-      <div className="dm-dashboard">
-        <div className="dm-loading">
-          <div className="dm-spinner"></div>
-          <h3>Loading dashboard</h3>
-          <p>Please wait while we load your milk management data.</p>
+      <div className="dashboard-page">
+        <div className="dashboard-loading">
+          <div className="loading-spinner"></div>
+          <h3>Loading Dashboard</h3>
+          <p>Please wait while we load your data...</p>
         </div>
       </div>
     );
   }
 
+  /* =========================
+     ERROR
+  ========================= */
+
   if (error) {
     return (
-      <div className="dm-dashboard">
-        <div className="dm-error">
-          <div className="dm-error-icon">!</div>
+      <div className="dashboard-page">
+        <div className="dashboard-error">
+          <div className="error-icon">!</div>
 
-          <h3>Something went wrong</h3>
+          <h3>Unable to Load Dashboard</h3>
 
           <p>{error}</p>
 
-          <button className="dm-primary-btn" onClick={loadDashboard}>
-            <Icon type="refresh" />
+          <button
+            className="dashboard-btn primary"
+            onClick={loadDashboard}
+          >
             Try Again
           </button>
         </div>
@@ -185,266 +96,566 @@ export default function Dashboard() {
     );
   }
 
-  return (
-    <div className="dm-dashboard">
+  /* =========================
+     ADMIN DASHBOARD
+  ========================= */
 
-      {/* HEADER */}
-      <div className="dm-dashboard-header">
-        <div>
-          <div className="dm-breadcrumb">
-            Dashboard
+  if (role === "admin") {
+    return (
+      <div className="dashboard-page">
+
+        <div className="dashboard-header">
+          <div>
+            <span className="dashboard-badge">
+              ADMIN PANEL
+            </span>
+
+            <h1>Dashboard</h1>
+
+            <p>
+              Welcome back, {userName}. Here's your milk
+              management overview.
+            </p>
           </div>
-
-          <h1>
-            Good to see you, {userName.split(" ")[0]} 👋
-          </h1>
-
-          <p>
-            Here's what's happening with your milk collection today.
-          </p>
-        </div>
-
-        <div className="dm-header-right">
-          <span className="dm-role-badge">
-            {roleTitle}
-          </span>
 
           <button
-            className="dm-refresh-btn"
+            className="dashboard-btn refresh"
             onClick={loadDashboard}
-            title="Refresh dashboard"
           >
-            <Icon type="refresh" />
+            ↻ Refresh
           </button>
         </div>
+
+        <div className="stats-grid">
+
+          <div className="dashboard-stat-card">
+            <div className="stat-card-top">
+              <div>
+                <p className="stat-title">Total Users</p>
+                <h2 className="stat-value">{stats.users}</h2>
+              </div>
+
+              <div className="stat-icon-box users">
+                <span className="stat-icon">👥</span>
+              </div>
+            </div>
+
+            <div className="stat-subtitle">
+              Registered system users
+            </div>
+          </div>
+
+          <div className="dashboard-stat-card">
+            <div className="stat-card-top">
+              <div>
+                <p className="stat-title">Total Farmers</p>
+                <h2 className="stat-value">{stats.farmers}</h2>
+              </div>
+
+              <div className="stat-icon-box farmers">
+                <span className="stat-icon">👨‍🌾</span>
+              </div>
+            </div>
+
+            <div className="stat-subtitle">
+              Active milk suppliers
+            </div>
+          </div>
+
+          <div className="dashboard-stat-card">
+            <div className="stat-card-top">
+              <div>
+                <p className="stat-title">Total Milk</p>
+                <h2 className="stat-value">
+                  {stats.milk} L
+                </h2>
+              </div>
+
+              <div className="stat-icon-box milk">
+                <span className="stat-icon">🥛</span>
+              </div>
+            </div>
+
+            <div className="stat-subtitle">
+              Total milk collected
+            </div>
+          </div>
+
+          <div className="dashboard-stat-card">
+            <div className="stat-card-top">
+              <div>
+                <p className="stat-title">Today's Milk</p>
+                <h2 className="stat-value">
+                  {stats.todayMilk} L
+                </h2>
+              </div>
+
+              <div className="stat-icon-box todayMilk">
+                <span className="stat-icon">📦</span>
+              </div>
+            </div>
+
+            <div className="stat-subtitle">
+              Milk collected today
+            </div>
+          </div>
+
+          <div className="dashboard-stat-card">
+            <div className="stat-card-top">
+              <div>
+                <p className="stat-title">
+                  Today's Collection
+                </p>
+
+                <h2 className="stat-value">
+                  ₹{stats.todayAmount}
+                </h2>
+              </div>
+
+              <div className="stat-icon-box collection">
+                <span className="stat-icon">💰</span>
+              </div>
+            </div>
+
+            <div className="stat-subtitle">
+              Today's collection value
+            </div>
+          </div>
+
+          <div className="dashboard-stat-card">
+            <div className="stat-card-top">
+              <div>
+                <p className="stat-title">
+                  Total Payments
+                </p>
+
+                <h2 className="stat-value">
+                  ₹{stats.payments}
+                </h2>
+              </div>
+
+              <div className="stat-icon-box payments">
+                <span className="stat-icon">💳</span>
+              </div>
+            </div>
+
+            <div className="stat-subtitle">
+              Total farmer payments
+            </div>
+          </div>
+
+        </div>
+
+        <div className="dashboard-content-grid">
+
+          <div className="dashboard-panel">
+
+            <div className="panel-header">
+              <div>
+                <h3>System Overview</h3>
+                <p>Current system statistics</p>
+              </div>
+
+              <div className="panel-icon">
+                📊
+              </div>
+            </div>
+
+            <div className="overview-content">
+
+              <div className="overview-item">
+                <div className="overview-icon">👥</div>
+
+                <div>
+                  <strong>{stats.users}</strong>
+                  <span>Total Users</span>
+                </div>
+              </div>
+
+              <div className="overview-item">
+                <div className="overview-icon">👨‍🌾</div>
+
+                <div>
+                  <strong>{stats.farmers}</strong>
+                  <span>Total Farmers</span>
+                </div>
+              </div>
+
+              <div className="overview-item">
+                <div className="overview-icon">🥛</div>
+
+                <div>
+                  <strong>{stats.milk} L</strong>
+                  <span>Total Milk</span>
+                </div>
+              </div>
+
+              <div className="overview-item">
+                <div className="overview-icon">💰</div>
+
+                <div>
+                  <strong>₹{stats.todayAmount}</strong>
+                  <span>Today's Collection</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div className="dashboard-panel">
+
+            <div className="panel-header">
+              <div>
+                <h3>Quick Actions</h3>
+                <p>Frequently used options</p>
+              </div>
+
+              <div className="panel-icon">
+                ⚡
+              </div>
+            </div>
+
+            <div className="quick-actions">
+
+              <a
+                href="/milk-collection/add"
+                className="quick-action"
+              >
+                <span>🥛</span>
+
+                <div>
+                  <strong>Add Milk Collection</strong>
+                  <small>
+                    Record today's milk
+                  </small>
+                </div>
+              </a>
+
+              <a
+                href="/milk-collection"
+                className="quick-action"
+              >
+                <span>📋</span>
+
+                <div>
+                  <strong>View Collections</strong>
+                  <small>
+                    Check collection records
+                  </small>
+                </div>
+              </a>
+
+              <a
+                href="/payments"
+                className="quick-action"
+              >
+                <span>💳</span>
+
+                <div>
+                  <strong>Payments</strong>
+                  <small>
+                    Manage farmer payments
+                  </small>
+                </div>
+              </a>
+
+              <a
+                href="/reports"
+                className="quick-action"
+              >
+                <span>📈</span>
+
+                <div>
+                  <strong>Reports</strong>
+                  <small>
+                    View system reports
+                  </small>
+                </div>
+              </a>
+
+            </div>
+          </div>
+
+        </div>
+
+        <div className="dashboard-info">
+
+          <div className="info-icon">
+            🥛
+          </div>
+
+          <div>
+            <h3>
+              Digital Milk Management System
+            </h3>
+
+            <p>
+              Manage farmers, milk collection,
+              payments and reports from one place.
+            </p>
+          </div>
+
+        </div>
+
       </div>
+    );
+  }
 
-      {/* ADMIN */}
-      {role === "admin" && (
-        <>
-          <div className="dm-section-title">
-            <div>
-              <h2>System Overview</h2>
-              <p>Monitor your complete milk management operation.</p>
+  /* =========================
+     USER DASHBOARD
+  ========================= */
+
+  if (role === "user") {
+    return (
+      <div className="dashboard-page">
+
+        <div className="dashboard-header">
+          <div>
+            <span className="dashboard-badge">
+              USER PANEL
+            </span>
+
+            <h1>Dashboard</h1>
+
+            <p>
+              Welcome back, {userName}.
+            </p>
+          </div>
+
+          <button
+            className="dashboard-btn refresh"
+            onClick={loadDashboard}
+          >
+            ↻ Refresh
+          </button>
+        </div>
+
+        <div className="stats-grid">
+
+          <div className="dashboard-stat-card">
+            <div className="stat-card-top">
+              <div>
+                <p className="stat-title">My Farmers</p>
+                <h2 className="stat-value">
+                  {stats.farmers}
+                </h2>
+              </div>
+
+              <div className="stat-icon-box farmers">
+                <span className="stat-icon">👨‍🌾</span>
+              </div>
+            </div>
+
+            <div className="stat-subtitle">
+              Farmers under management
             </div>
           </div>
 
-          <div className="dm-stats-grid">
+          <div className="dashboard-stat-card">
+            <div className="stat-card-top">
+              <div>
+                <p className="stat-title">Total Milk</p>
+                <h2 className="stat-value">
+                  {stats.milk} L
+                </h2>
+              </div>
 
-            <StatCard
-              icon="users"
-              title="Total Users"
-              value={stats.users}
-              subtitle="Registered users"
-              accent="blue"
-            />
+              <div className="stat-icon-box milk">
+                <span className="stat-icon">🥛</span>
+              </div>
+            </div>
 
-            <StatCard
-              icon="farmer"
-              title="Total Farmers"
-              value={stats.farmers}
-              subtitle="Active farmers"
-              accent="green"
-            />
-
-            <StatCard
-              icon="milk"
-              title="Total Milk"
-              value={`${stats.milk} L`}
-              subtitle="All-time collection"
-              accent="purple"
-            />
-
-            <StatCard
-              icon="milk"
-              title="Today's Milk"
-              value={`${stats.todayMilk} L`}
-              subtitle="Collected today"
-              accent="orange"
-            />
-
-            <StatCard
-              icon="money"
-              title="Today's Collection"
-              value={`₹${Number(stats.todayAmount).toLocaleString("en-IN")}`}
-              subtitle="Today's value"
-              accent="cyan"
-            />
-
-            <StatCard
-              icon="payment"
-              title="Total Payments"
-              value={`₹${Number(stats.payments).toLocaleString("en-IN")}`}
-              subtitle="Payment records"
-              accent="pink"
-            />
-
-          </div>
-
-          <QuickActions />
-        </>
-      )}
-
-      {/* USER */}
-      {role === "user" && (
-        <>
-          <div className="dm-section-title">
-            <div>
-              <h2>My Collection Overview</h2>
-              <p>Track your farmers and daily milk collection.</p>
+            <div className="stat-subtitle">
+              Total collected milk
             </div>
           </div>
 
-          <div className="dm-stats-grid">
+          <div className="dashboard-stat-card">
+            <div className="stat-card-top">
+              <div>
+                <p className="stat-title">Today's Milk</p>
+                <h2 className="stat-value">
+                  {stats.todayMilk} L
+                </h2>
+              </div>
 
-            <StatCard
-              icon="farmer"
-              title="My Farmers"
-              value={stats.farmers}
-              subtitle="Farmers under management"
-              accent="green"
-            />
+              <div className="stat-icon-box todayMilk">
+                <span className="stat-icon">📦</span>
+              </div>
+            </div>
 
-            <StatCard
-              icon="milk"
-              title="Total Milk"
-              value={`${stats.milk} L`}
-              subtitle="All-time collection"
-              accent="purple"
-            />
-
-            <StatCard
-              icon="milk"
-              title="Today's Milk"
-              value={`${stats.todayMilk} L`}
-              subtitle="Collected today"
-              accent="orange"
-            />
-
-            <StatCard
-              icon="money"
-              title="Today's Collection"
-              value={`₹${Number(stats.todayAmount).toLocaleString("en-IN")}`}
-              subtitle="Today's value"
-              accent="cyan"
-            />
-
-          </div>
-
-          <QuickActions />
-        </>
-      )}
-
-      {/* FARMER */}
-      {role === "farmer" && (
-        <>
-          <div className="dm-section-title">
-            <div>
-              <h2>My Milk Overview</h2>
-              <p>Keep track of your milk deliveries and earnings.</p>
+            <div className="stat-subtitle">
+              Collected today
             </div>
           </div>
 
-          <div className="dm-stats-grid">
+          <div className="dashboard-stat-card">
+            <div className="stat-card-top">
+              <div>
+                <p className="stat-title">
+                  Today's Collection
+                </p>
 
-            <StatCard
-              icon="milk"
-              title="Total Milk"
-              value={`${stats.milk} L`}
-              subtitle="All-time collection"
-              accent="purple"
-            />
+                <h2 className="stat-value">
+                  ₹{stats.todayAmount}
+                </h2>
+              </div>
 
-            <StatCard
-              icon="milk"
-              title="Today's Milk"
-              value={`${stats.todayMilk} L`}
-              subtitle="Collected today"
-              accent="orange"
-            />
-
-            <StatCard
-              icon="money"
-              title="Total Earnings"
-              value={`₹${Number(stats.amount).toLocaleString("en-IN")}`}
-              subtitle="Total milk earnings"
-              accent="green"
-            />
-
-          </div>
-
-          <div className="dm-farmer-highlight">
-            <div className="dm-highlight-icon">
-              <Icon type="milk" />
+              <div className="stat-icon-box collection">
+                <span className="stat-icon">💰</span>
+              </div>
             </div>
 
+            <div className="stat-subtitle">
+              Today's collection value
+            </div>
+          </div>
+
+        </div>
+
+        <div className="dashboard-panel">
+
+          <div className="panel-header">
             <div>
-              <h3>Your milk collection</h3>
+              <h3>My Collection</h3>
+
               <p>
-                Your recorded milk deliveries and earnings will appear here.
+                Manage your farmers and milk
+                collection records.
+              </p>
+            </div>
+
+            <div className="panel-icon">
+              🥛
+            </div>
+          </div>
+
+          <div className="user-dashboard-message">
+            <span>💡</span>
+
+            <div>
+              <strong>
+                Start managing your milk collection
+              </strong>
+
+              <p>
+                Use the menu to add farmers,
+                record milk collection and
+                manage payments.
               </p>
             </div>
           </div>
-        </>
-      )}
 
-    </div>
-  );
-}
-
-function QuickActions() {
-  return (
-    <div className="dm-quick-section">
-
-      <div className="dm-section-title">
-        <div>
-          <h2>Quick Actions</h2>
-          <p>Common tasks you can access quickly.</p>
         </div>
-      </div>
-
-      <div className="dm-actions">
-
-        <Link to="/milk-collection/add" className="dm-action-card">
-          <div className="dm-action-icon">
-            <Icon type="plus" />
-          </div>
-
-          <div>
-            <strong>Record Milk</strong>
-            <span>Add a new milk collection</span>
-          </div>
-
-          <Icon type="arrow" />
-        </Link>
-
-        <Link to="/milk-collection" className="dm-action-card">
-          <div className="dm-action-icon">
-            <Icon type="milk" />
-          </div>
-
-          <div>
-            <strong>Milk Collections</strong>
-            <span>View collection records</span>
-          </div>
-
-          <Icon type="arrow" />
-        </Link>
-
-        <Link to="/payments" className="dm-action-card">
-          <div className="dm-action-icon">
-            <Icon type="payment" />
-          </div>
-
-          <div>
-            <strong>Payments</strong>
-            <span>View payment information</span>
-          </div>
-
-          <Icon type="arrow" />
-        </Link>
 
       </div>
+    );
+  }
+
+  /* =========================
+     FARMER DASHBOARD
+  ========================= */
+
+  return (
+    <div className="dashboard-page">
+
+      <div className="dashboard-header">
+        <div>
+          <span className="dashboard-badge">
+            FARMER PANEL
+          </span>
+
+          <h1>My Dashboard</h1>
+
+          <p>
+            Welcome back, {userName}.
+          </p>
+        </div>
+
+        <button
+          className="dashboard-btn refresh"
+          onClick={loadDashboard}
+        >
+          ↻ Refresh
+        </button>
+      </div>
+
+      <div className="stats-grid">
+
+        <div className="dashboard-stat-card">
+          <div className="stat-card-top">
+
+            <div>
+              <p className="stat-title">
+                Total Milk
+              </p>
+
+              <h2 className="stat-value">
+                {stats.milk} L
+              </h2>
+            </div>
+
+            <div className="stat-icon-box milk">
+              <span className="stat-icon">🥛</span>
+            </div>
+
+          </div>
+
+          <div className="stat-subtitle">
+            Total milk supplied
+          </div>
+        </div>
+
+        <div className="dashboard-stat-card">
+          <div className="stat-card-top">
+
+            <div>
+              <p className="stat-title">
+                Today's Milk
+              </p>
+
+              <h2 className="stat-value">
+                {stats.todayMilk} L
+              </h2>
+            </div>
+
+            <div className="stat-icon-box todayMilk">
+              <span className="stat-icon">📦</span>
+            </div>
+
+          </div>
+
+          <div className="stat-subtitle">
+            Today's milk supply
+          </div>
+        </div>
+
+        <div className="dashboard-stat-card">
+          <div className="stat-card-top">
+
+            <div>
+              <p className="stat-title">
+                Total Earnings
+              </p>
+
+              <h2 className="stat-value">
+                ₹{stats.amount}
+              </h2>
+            </div>
+
+            <div className="stat-icon-box payments">
+              <span className="stat-icon">💰</span>
+            </div>
+
+          </div>
+
+          <div className="stat-subtitle">
+            Total earnings
+          </div>
+        </div>
+
+      </div>
+
     </div>
   );
 }

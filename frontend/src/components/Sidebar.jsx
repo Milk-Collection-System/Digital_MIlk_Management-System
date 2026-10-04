@@ -1,91 +1,190 @@
 import { NavLink, useNavigate } from "react-router-dom";
+import "../styles/Sidebar.css";
 
-export default function Sidebar() {
-
+export default function Sidebar({ collapsed, setCollapsed }) {
   const navigate = useNavigate();
 
   const role = localStorage.getItem("role") || "user";
 
-  const logout = () => {
-
-    localStorage.removeItem("isLoggedIn");
+  const handleLogout = () => {
+    localStorage.removeItem("token");
     localStorage.removeItem("role");
     localStorage.removeItem("userName");
-    localStorage.removeItem("userId");
 
     navigate("/login");
   };
 
-  const adminLinks = [
-    ["/dashboard", "Dashboard"],
-    ["/users", "Users"],
-    ["/farmers", "Farmers"],
-    ["/milk-collection", "Milk Collection Data"],
-    ["/payment-receipts", "Payment Receipts"],
-    ["/payments", "Payment Data"],
-    ["/reports", "Reports"],
-  ];
-
-  const userLinks = [
-    ["/dashboard", "Dashboard"],
-    ["/farmers", "My Farmers"],
-    ["/milk-collection", "Milk Collection"],
-    ["/payment-receipts", "Payment Receipts"],
-    ["/payments", "Payment Data"],
-  ];
-
-  const farmerLinks = [
-    ["/dashboard", "Dashboard"],
-    ["/milk-collection", "My Milk Collection"],
-    ["/payment-receipts", "Payment Receipts"],
-    ["/payments", "My Payments"],
-  ];
-
-  let links = userLinks;
-
-  if (role === "admin") {
-    links = adminLinks;
-  }
-
-  if (role === "farmer") {
-    links = farmerLinks;
-  }
-
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${collapsed ? "collapsed" : ""}`}>
 
-      <div className="brand">
-        🥛 Digital Milk
+      {/* LOGO */}
+
+      <div className="sidebar-logo">
+
+        <div className="logo-icon">
+          🥛
+        </div>
+
+        {!collapsed && (
+          <div className="logo-text">
+            Digital Milk
+          </div>
+        )}
+
       </div>
 
-      <nav className="nav flex-column pt-3">
 
-        {links.map(([to, label]) => (
+      {/* MENU */}
 
-          <NavLink
-            key={to}
-            to={to}
-            className="nav-link px-3 py-2"
-          >
-            <span>{label}</span>
-          </NavLink>
+      <nav className="sidebar-menu">
 
-        ))}
+        {!collapsed && (
+          <div className="menu-section-title">
+            MAIN MENU
+          </div>
+        )}
+
+
+        <NavLink
+          to="/dashboard"
+          title="Dashboard"
+          className={({ isActive }) =>
+            `sidebar-link ${isActive ? "active" : ""}`
+          }
+        >
+          <span className="sidebar-link-icon">▦</span>
+
+          {!collapsed && (
+            <span>Dashboard</span>
+          )}
+        </NavLink>
+
+
+        <NavLink
+          to="/users"
+          title="Users"
+          className={({ isActive }) =>
+            `sidebar-link ${isActive ? "active" : ""}`
+          }
+        >
+          <span className="sidebar-link-icon">👥</span>
+
+          {!collapsed && (
+            <span>Users</span>
+          )}
+        </NavLink>
+
+
+        <NavLink
+          to="/farmers"
+          title="Farmers"
+          className={({ isActive }) =>
+            `sidebar-link ${isActive ? "active" : ""}`
+          }
+        >
+          <span className="sidebar-link-icon">👨‍🌾</span>
+
+          {!collapsed && (
+            <span>Farmers</span>
+          )}
+        </NavLink>
+
+
+        <NavLink
+          to="/milk-collection"
+          title="Milk Collection"
+          className={({ isActive }) =>
+            `sidebar-link ${isActive ? "active" : ""}`
+          }
+        >
+          <span className="sidebar-link-icon">🥛</span>
+
+          {!collapsed && (
+            <span>Milk Collection</span>
+          )}
+        </NavLink>
+
+
+        <NavLink
+          to="/payments"
+          title="Payments"
+          className={({ isActive }) =>
+            `sidebar-link ${isActive ? "active" : ""}`
+          }
+        >
+          <span className="sidebar-link-icon">₹</span>
+
+          {!collapsed && (
+            <span>Payments</span>
+          )}
+        </NavLink>
+
+
+        <NavLink
+          to="/receipts"
+          title="Receipts"
+          className={({ isActive }) =>
+            `sidebar-link ${isActive ? "active" : ""}`
+          }
+        >
+          <span className="sidebar-link-icon">▤</span>
+
+          {!collapsed && (
+            <span>Receipts</span>
+          )}
+        </NavLink>
+
+
+        <NavLink
+          to="/reports"
+          title="Reports"
+          className={({ isActive }) =>
+            `sidebar-link ${isActive ? "active" : ""}`
+          }
+        >
+          <span className="sidebar-link-icon">▥</span>
+
+          {!collapsed && (
+            <span>Reports</span>
+          )}
+        </NavLink>
+
+
+        {/* ADMIN */}
+
+        {role === "admin" && !collapsed && (
+          <>
+            <div className="menu-section-title admin-title">
+              ADMINISTRATION
+            </div>
+
+            <div className="role-badge">
+              <span>●</span>
+              ADMIN
+            </div>
+          </>
+        )}
 
       </nav>
 
-      <div className="sidebar-account">
 
-        <div className="account-role">
-          {role.toUpperCase()}
-        </div>
+      {/* LOGOUT */}
+
+      <div className="sidebar-bottom">
 
         <button
-          type="button"
-          onClick={logout}
           className="logout-button"
+          title="Logout"
+          onClick={handleLogout}
         >
-          Logout
+          <span className="logout-icon">
+            ↪
+          </span>
+
+          {!collapsed && (
+            <span>Logout</span>
+          )}
+
         </button>
 
       </div>
