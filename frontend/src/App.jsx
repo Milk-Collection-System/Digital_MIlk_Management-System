@@ -25,11 +25,12 @@ import Payments from "./pages/Payments/Payments";
 import Reports from "./pages/Reports/Reports";
 
 
-/* =====================================
-   MAIN LAYOUT
-===================================== */
+/* =========================================
+   MAIN APPLICATION LAYOUT
+========================================= */
 
-const Layout = ({ children }) => {
+function Layout({ children }) {
+
   const [collapsed, setCollapsed] = useState(false);
 
   return (
@@ -38,12 +39,14 @@ const Layout = ({ children }) => {
         collapsed ? "sidebar-collapsed" : ""
       }`}
     >
+
       <Sidebar
         collapsed={collapsed}
         setCollapsed={setCollapsed}
       />
 
       <div className="main-area">
+
         <Navbar
           collapsed={collapsed}
           setCollapsed={setCollapsed}
@@ -52,37 +55,53 @@ const Layout = ({ children }) => {
         <main className="content">
           {children}
         </main>
+
       </div>
+
     </div>
   );
-};
+}
 
 
-/* =====================================
+/* =========================================
    PROTECTED LAYOUT
-===================================== */
+========================================= */
 
-const ProtectedLayout = ({ children, allowedRoles }) => {
+function ProtectedLayout({
+  children,
+  allowedRoles,
+}) {
+
   return (
-    <ProtectedRoute allowedRoles={allowedRoles}>
+    <ProtectedRoute
+      allowedRoles={allowedRoles}
+    >
+
       <Layout>
         {children}
       </Layout>
+
     </ProtectedRoute>
   );
-};
+}
 
 
-/* =====================================
+/* =========================================
    APP
-===================================== */
+========================================= */
 
 export default function App() {
+
   return (
+
     <BrowserRouter>
+
       <Routes>
 
-        {/* ROOT */}
+        {/* ================================
+            PUBLIC
+        ================================= */}
+
         <Route
           path="/"
           element={
@@ -92,8 +111,6 @@ export default function App() {
             />
           }
         />
-
-        {/* PUBLIC PAGES */}
 
         <Route
           path="/home"
@@ -115,18 +132,30 @@ export default function App() {
           element={<ForgotPassword />}
         />
 
-        {/* DASHBOARD */}
+
+        {/* ================================
+            DASHBOARD
+        ================================= */}
 
         <Route
           path="/dashboard"
           element={
-            <ProtectedLayout>
+            <ProtectedLayout
+              allowedRoles={[
+                "admin",
+                "user",
+                "farmer",
+              ]}
+            >
               <Dashboard />
             </ProtectedLayout>
           }
         />
 
-        {/* MILK COLLECTION */}
+
+        {/* ================================
+            MILK COLLECTION
+        ================================= */}
 
         <Route
           path="/milk-collection"
@@ -157,18 +186,30 @@ export default function App() {
           }
         />
 
-        {/* PAYMENTS */}
+
+        {/* ================================
+            PAYMENTS
+        ================================= */}
 
         <Route
           path="/payments"
           element={
-            <ProtectedLayout>
+            <ProtectedLayout
+              allowedRoles={[
+                "admin",
+                "user",
+                "farmer",
+              ]}
+            >
               <Payments />
             </ProtectedLayout>
           }
         />
 
-        {/* REPORTS */}
+
+        {/* ================================
+            REPORTS
+        ================================= */}
 
         <Route
           path="/reports"
@@ -183,19 +224,23 @@ export default function App() {
           }
         />
 
-        {/* UNKNOWN URL */}
+
+        {/* ================================
+            UNKNOWN URL
+        ================================= */}
 
         <Route
           path="*"
           element={
             <Navigate
-              to="/home"
+              to="/dashboard"
               replace
             />
           }
         />
 
       </Routes>
+
     </BrowserRouter>
   );
 }

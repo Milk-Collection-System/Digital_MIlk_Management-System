@@ -6,14 +6,17 @@
   box-sizing: border-box;
 }
 
+
 html,
 body,
 #root {
-  margin: 0;
-  padding: 0;
   width: 100%;
   min-height: 100%;
+
+  margin: 0;
+  padding: 0;
 }
+
 
 body {
   font-family:
@@ -26,17 +29,19 @@ body {
     sans-serif;
 
   background: #f5f7fb;
+
   color: #172033;
 }
 
 
 /* =========================================
-   APPLICATION LAYOUT
+   APP
 ========================================= */
 
 .app-shell {
   width: 100%;
   min-height: 100vh;
+
   background: #f5f7fb;
 }
 
@@ -46,13 +51,13 @@ body {
 ========================================= */
 
 .main-area {
-  margin-left: 250px;
+  position: relative;
 
   width: calc(100% - 250px);
 
   min-height: 100vh;
 
-  position: relative;
+  margin-left: 250px;
 
   transition:
     margin-left 0.25s ease,
@@ -61,18 +66,18 @@ body {
 
 
 /* =========================================
-   COLLAPSED SIDEBAR LAYOUT
+   COLLAPSED
 ========================================= */
 
 .app-shell.sidebar-collapsed .main-area {
-  margin-left: 78px;
-
   width: calc(100% - 78px);
+
+  margin-left: 78px;
 }
 
 
 /* =========================================
-   PAGE CONTENT
+   CONTENT
 ========================================= */
 
 .content {
@@ -80,7 +85,10 @@ body {
 
   min-height: calc(100vh - 72px);
 
-  padding: 96px 28px 32px;
+  padding:
+    96px
+    28px
+    32px;
 
   background: #f5f7fb;
 }
@@ -92,6 +100,7 @@ body {
 
 .container-fluid {
   width: 100%;
+
   max-width: 1600px;
 
   margin: 0 auto;
@@ -105,10 +114,11 @@ body {
 .page-title {
   margin: 0;
 
-  font-size: 28px;
-  font-weight: 700;
-
   color: #172033;
+
+  font-size: 28px;
+
+  font-weight: 700;
 }
 
 
@@ -119,29 +129,58 @@ body {
 .card {
   background: #ffffff;
 
-  border: 1px solid #e7ebf2;
+  border:
+    1px solid #e7ebf2;
 
   border-radius: 14px;
 
   box-shadow:
-    0 4px 16px rgba(20, 40, 70, 0.05);
+    0 4px 16px
+    rgba(20,40,70,0.05);
 }
 
 
 /* =========================================
-   RESPONSIVE
+   BUTTON
+========================================= */
+
+button {
+  font-family: inherit;
+}
+
+
+/* =========================================
+   LINKS
+========================================= */
+
+a {
+  font-family: inherit;
+}
+
+
+/* =========================================
+   MOBILE
 ========================================= */
 
 @media (max-width: 768px) {
 
   .main-area {
-    margin-left: 78px;
+    width: calc(100% - 68px);
 
-    width: calc(100% - 78px);
+    margin-left: 68px;
+  }
+
+  .app-shell.sidebar-collapsed .main-area {
+    width: calc(100% - 68px);
+
+    margin-left: 68px;
   }
 
   .content {
-    padding: 88px 16px 24px;
+    padding:
+      88px
+      16px
+      24px;
   }
 
 }
