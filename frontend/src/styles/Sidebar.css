@@ -1,0 +1,290 @@
+/* =================================
+   SIDEBAR
+================================= */
+
+.sidebar {
+  width: 250px;
+  min-width: 250px;
+  height: 100vh;
+
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #123f60;
+  color: #ffffff;
+
+  z-index: 1000;
+
+  box-shadow: 3px 0 15px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =================================
+   LOGO
+================================= */
+
+.sidebar-logo {
+  height: 72px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  padding: 0 22px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.logo-icon {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #ffffff;
+
+  border-radius: 9px;
+
+  font-size: 20px;
+}
+
+.logo-text {
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+
+/* =================================
+   MENU
+================================= */
+
+.sidebar-menu {
+  flex: 1;
+
+  padding: 20px 12px;
+
+  overflow-y: auto;
+}
+
+.menu-section-title {
+  padding: 8px 12px 9px;
+
+  color: rgba(255, 255, 255, 0.48);
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+
+/* =================================
+   LINKS
+================================= */
+
+.sidebar-link {
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 0 13px;
+
+  margin-bottom: 5px;
+
+  color: rgba(255, 255, 255, 0.78);
+
+  text-decoration: none;
+
+  border-radius: 8px;
+
+  font-size: 14px;
+
+  font-weight: 500;
+
+  transition: all 0.2s ease;
+}
+
+.sidebar-link:hover {
+  color: #ffffff;
+
+  background: rgba(255, 255, 255, 0.09);
+
+  text-decoration: none;
+}
+
+.sidebar-link.active {
+  color: #ffffff;
+
+  background: rgba(255, 255, 255, 0.15);
+
+  box-shadow:
+    inset 3px 0 0 #ffffff;
+}
+
+
+/* =================================
+   ICON
+================================= */
+
+.sidebar-link-icon {
+  width: 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 16px;
+
+  flex-shrink: 0;
+}
+
+
+/* =================================
+   ADMIN
+================================= */
+
+.admin-title {
+  margin-top: 20px;
+}
+
+.role-badge {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  margin: 5px 12px;
+
+  padding: 8px 10px;
+
+  border-radius: 7px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  color: rgba(255, 255, 255, 0.75);
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.8px;
+}
+
+.role-badge span {
+  color: #69d39a;
+
+  font-size: 8px;
+}
+
+
+/* =================================
+   BOTTOM
+================================= */
+
+.sidebar-bottom {
+  padding: 15px 12px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+
+/* =================================
+   LOGOUT
+================================= */
+
+.logout-button {
+  width: 100%;
+
+  height: 43px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 0 13px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: transparent;
+
+  color: rgba(255, 255, 255, 0.75);
+
+  font-size: 14px;
+
+  font-weight: 500;
+
+  cursor: pointer;
+
+  text-align: left;
+
+  transition: all 0.2s ease;
+}
+
+.logout-button:hover {
+  background: rgba(255, 255, 255, 0.09);
+
+  color: #ffffff;
+}
+
+.logout-icon {
+  width: 25px;
+
+  display: flex;
+  justify-content: center;
+
+  font-size: 18px;
+}
+
+
+/* =================================
+   SCROLLBAR
+================================= */
+
+.sidebar-menu::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-menu::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+
+  border-radius: 10px;
+}
+
+
+/* =================================
+   RESPONSIVE
+================================= */
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 220px;
+    min-width: 220px;
+  }
+
+  .logo-text {
+    font-size: 18px;
+  }
+
+  .sidebar-link {
+    font-size: 13px;
+  }
+}
