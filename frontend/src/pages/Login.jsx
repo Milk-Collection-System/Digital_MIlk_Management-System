@@ -1,14 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "../styles/Login.css";
-import "../styles/RoleToggle.css";
 import { authApi } from "../services/api";
 
 export default function Login() {
-
   const navigate = useNavigate();
 
-  const [role, setRole] = useState("user");
+  const [role, setRole] = useState("admin");
 
   const [formData, setFormData] = useState({
     email: "",
@@ -18,9 +16,11 @@ export default function Login() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // =========================
+  // HANDLE INPUT
+  // =========================
 
   const handleChange = (e) => {
-
     const { name, value } = e.target;
 
     setFormData((previous) => ({
@@ -31,91 +31,64 @@ export default function Login() {
     setError("");
   };
 
+  // =========================
+  // LOGIN
+  // =========================
 
   const handleSubmit = async (e) => {
-
     e.preventDefault();
 
     setError("");
     setLoading(true);
 
     try {
-
       const response = await authApi.login({
         email: formData.email,
         password: formData.password,
 
-        // Backend expects ADMIN / USER / FARMER
+        // Backend expects ADMIN / FARMER
         role: role.toUpperCase(),
       });
 
-
       const data = response.data;
 
+      // =========================
+      // SAVE LOGIN INFORMATION
+      // =========================
 
-      /* =========================
-         SAVE LOGIN INFORMATION
-      ========================= */
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("role", data.role.toLowerCase());
+      localStorage.setItem("userId", data.userId);
+      localStorage.setItem("userName", data.fullName);
+      localStorage.setItem("userEmail", data.email);
 
-      localStorage.setItem(
-        "token",
-        data.token
-      );
-
-      localStorage.setItem(
-        "isLoggedIn",
-        "true"
-      );
-
-      localStorage.setItem(
-        "role",
-        data.role.toLowerCase()
-      );
-
-      localStorage.setItem(
-        "userId",
-        data.userId
-      );
-
-      localStorage.setItem(
-        "userName",
-        data.fullName
-      );
-
-      localStorage.setItem(
-        "userEmail",
-        data.email
-      );
-
-
-      /* =========================
-         GO TO DASHBOARD
-      ========================= */
+      // =========================
+      // DASHBOARD
+      // =========================
 
       navigate("/dashboard", {
         replace: true,
       });
-
     } catch (error) {
-
-      console.error(
-        "Login error:",
-        error
-      );
+      console.error("Login error:", error);
 
       const message =
         error?.response?.data?.message ||
         "Invalid email, password or account type.";
 
       setError(message);
-
     } finally {
-
       setLoading(false);
-
     }
   };
 
+  // =========================
+  // ROLE NAME
+  // =========================
+
+  const roleName =
+    role.charAt(0).toUpperCase() + role.slice(1);
 
   return (
     <div className="login-page">
@@ -124,26 +97,29 @@ export default function Login() {
 
         <div className="login-card">
 
-          {/* LOGO */}
+          {/* =========================
+              LOGO
+          ========================= */}
 
           <div className="login-logo">
 
-            <div className="milk-icon">
-              🥛
+            <div className="login-logo-image">
+              <img
+                src="/milk-logo.png"
+                alt="Digital Milk Management System"
+              />
             </div>
 
-            <h1>
-              Digital Milk
-            </h1>
+            <h1>Digital Milk</h1>
 
-            <p>
-              Management System
-            </p>
+            <p>Management System</p>
 
           </div>
 
 
-          {/* ROLE */}
+          {/* =========================
+              ROLE SELECT
+          ========================= */}
 
           <div className="role-section">
 
@@ -154,50 +130,46 @@ export default function Login() {
             <div
               className="role-toggle"
               role="tablist"
+              aria-label="Login role"
             >
 
+              {/* ADMIN */}
+
               <button
                 type="button"
                 className={`role-option ${
-                  role === "admin"
-                    ? "active"
-                    : ""
+                  role === "admin" ? "active" : ""
                 }`}
-                onClick={() =>
-                  setRole("admin")
-                }
+                onClick={() => {
+                  setRole("admin");
+                  setError("");
+                }}
               >
-                Admin
+                <span className="role-icon">
+                  ⚙
+                </span>
+
+                <span>Admin</span>
               </button>
 
 
-              <button
-                type="button"
-                className={`role-option ${
-                  role === "user"
-                    ? "active"
-                    : ""
-                }`}
-                onClick={() =>
-                  setRole("user")
-                }
-              >
-                User
-              </button>
-
+              {/* FARMER */}
 
               <button
                 type="button"
                 className={`role-option ${
-                  role === "farmer"
-                    ? "active"
-                    : ""
+                  role === "farmer" ? "active" : ""
                 }`}
-                onClick={() =>
-                  setRole("farmer")
-                }
+                onClick={() => {
+                  setRole("farmer");
+                  setError("");
+                }}
               >
-                Farmer
+                <span className="role-icon">
+                  🐄
+                </span>
+
+                <span>Farmer</span>
               </button>
 
             </div>
@@ -205,12 +177,16 @@ export default function Login() {
           </div>
 
 
-          {/* FORM */}
+          {/* =========================
+              LOGIN FORM
+          ========================= */}
 
           <form
             className="login-form"
             onSubmit={handleSubmit}
           >
+
+            {/* EMAIL */}
 
             <div className="login-field">
 
@@ -232,6 +208,8 @@ export default function Login() {
             </div>
 
 
+            {/* PASSWORD */}
+
             <div className="login-field">
 
               <label htmlFor="password">
@@ -252,6 +230,8 @@ export default function Login() {
             </div>
 
 
+            {/* FORGOT PASSWORD */}
+
             <div className="forgot-password">
 
               <Link to="/forgot-password">
@@ -270,6 +250,8 @@ export default function Login() {
             )}
 
 
+            {/* LOGIN BUTTON */}
+
             <button
               type="submit"
               className="login-button"
@@ -278,13 +260,18 @@ export default function Login() {
 
               {loading
                 ? "Logging in..."
-                : `Login as ${
-                    role.charAt(0).toUpperCase() +
-                    role.slice(1)
-                  }`}
+                : `Login as ${roleName}`}
+
+              {!loading && (
+                <span className="login-arrow">
+                  →
+                </span>
+              )}
 
             </button>
 
+
+            {/* CREATE ACCOUNT */}
 
             <Link
               to="/register"
@@ -295,6 +282,8 @@ export default function Login() {
 
           </form>
 
+
+          {/* BACK HOME */}
 
           <Link
             to="/"

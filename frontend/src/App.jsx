@@ -33,23 +33,48 @@ function Layout({ children }) {
 
   const [collapsed, setCollapsed] = useState(false);
 
+  const role =
+    (localStorage.getItem("role") || "farmer")
+      .toLowerCase();
+
+  const isFarmer = role === "farmer";
+
   return (
     <div
       className={`app-shell ${
-        collapsed ? "sidebar-collapsed" : ""
+        !isFarmer && collapsed
+          ? "sidebar-collapsed"
+          : ""
+      } ${
+        isFarmer
+          ? "farmer-layout"
+          : ""
       }`}
     >
 
-      <Sidebar
-        collapsed={collapsed}
-        setCollapsed={setCollapsed}
-      />
+      {/* =================================
+          SIDEBAR
+          Only Admin gets sidebar
+      ================================== */}
+
+      {!isFarmer && (
+        <Sidebar
+          collapsed={collapsed}
+          setCollapsed={setCollapsed}
+        />
+      )}
+
+
+      {/* =================================
+          MAIN AREA
+      ================================== */}
 
       <div className="main-area">
 
         <Navbar
           collapsed={collapsed}
           setCollapsed={setCollapsed}
+          hideSidebar={isFarmer}
         />
 
         <main className="content">
@@ -76,11 +101,9 @@ function ProtectedLayout({
     <ProtectedRoute
       allowedRoles={allowedRoles}
     >
-
       <Layout>
         {children}
       </Layout>
-
     </ProtectedRoute>
   );
 }
@@ -99,7 +122,7 @@ export default function App() {
       <Routes>
 
         {/* ================================
-            PUBLIC
+            PUBLIC PAGES
         ================================= */}
 
         <Route
@@ -135,6 +158,7 @@ export default function App() {
 
         {/* ================================
             DASHBOARD
+            ADMIN + FARMER
         ================================= */}
 
         <Route
@@ -143,7 +167,6 @@ export default function App() {
             <ProtectedLayout
               allowedRoles={[
                 "admin",
-                "user",
                 "farmer",
               ]}
             >
@@ -155,6 +178,7 @@ export default function App() {
 
         {/* ================================
             MILK COLLECTION
+            ADMIN + FARMER
         ================================= */}
 
         <Route
@@ -163,7 +187,6 @@ export default function App() {
             <ProtectedLayout
               allowedRoles={[
                 "admin",
-                "user",
                 "farmer",
               ]}
             >
@@ -172,13 +195,18 @@ export default function App() {
           }
         />
 
+
+        {/* ================================
+            ADD MILK COLLECTION
+            ADMIN ONLY
+        ================================= */}
+
         <Route
           path="/milk-collection/add"
           element={
             <ProtectedLayout
               allowedRoles={[
                 "admin",
-                "user",
               ]}
             >
               <AddMilkCollection />
@@ -189,6 +217,7 @@ export default function App() {
 
         {/* ================================
             PAYMENTS
+            ADMIN + FARMER
         ================================= */}
 
         <Route
@@ -197,7 +226,6 @@ export default function App() {
             <ProtectedLayout
               allowedRoles={[
                 "admin",
-                "user",
                 "farmer",
               ]}
             >
@@ -209,6 +237,7 @@ export default function App() {
 
         {/* ================================
             REPORTS
+            ADMIN ONLY
         ================================= */}
 
         <Route

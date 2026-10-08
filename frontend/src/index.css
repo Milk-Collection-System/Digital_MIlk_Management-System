@@ -184,3 +184,49 @@ a {
   }
 
 }
+
+/* =========================================================
+   FARMER LAYOUT - NO SIDEBAR
+   ========================================================= */
+
+.app-shell.farmer-layout {
+  display: block !important;
+  width: 100% !important;
+  min-height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.app-shell.farmer-layout .main-area {
+  width: 100% !important;
+  min-width: 100% !important;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+.app-shell.farmer-layout .content {
+  width: 100% !important;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+
+/* Farmer navbar */
+.app-shell.farmer-layout .top-navbar {
+  width: 100% !important;
+  margin-left: 0 !important;
+  left: 0 !important;
+}
+
+
+/* Farmer navbar title centered */
+.app-shell.farmer-layout .navbar-left {
+  justify-content: center !important;
+  width: 100% !important;
+}
+
+
+/* Make sure hamburger cannot appear */
+.app-shell.farmer-layout .sidebar-toggle {
+  display: none !important;
+}

@@ -1,37 +1,58 @@
 import "../styles/Navbar.css";
 
-export default function Navbar({ collapsed, setCollapsed }) {
+export default function Navbar({
+  collapsed,
+  setCollapsed,
+  hideSidebar = false,
+}) {
 
   const userName =
     localStorage.getItem("userName") || "User";
 
   const role =
-    localStorage.getItem("role") || "user";
+    (localStorage.getItem("role") || "farmer")
+      .toLowerCase();
+
+  const firstLetter =
+    userName.charAt(0).toUpperCase();
 
   return (
-    <header className="top-navbar">
+    <header
+      className={`top-navbar ${
+        hideSidebar ? "farmer-navbar" : ""
+      }`}
+    >
 
-      {/* SIDEBAR TOGGLE */}
+      {/* LEFT SIDE */}
+      <div className="navbar-left">
 
-      <button
-        className="sidebar-toggle"
-        onClick={() => setCollapsed(!collapsed)}
-        title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-      >
-        {collapsed ? "☰" : "☰"}
-      </button>
+        {/* Hamburger ONLY for Admin */}
+        {!hideSidebar && (
+          <button
+            type="button"
+            className="sidebar-toggle"
+            onClick={() =>
+              setCollapsed(!collapsed)
+            }
+            title={
+              collapsed
+                ? "Expand sidebar"
+                : "Collapse sidebar"
+            }
+          >
+            ☰
+          </button>
+        )}
 
+        <div className="navbar-title">
+          Digital Milk Management System
+        </div>
 
-      {/* TITLE */}
-
-      <div className="navbar-title">
-        Digital Milk Management System
       </div>
 
 
-      {/* USER */}
-
-      <div className="navbar-user">
+      {/* RIGHT SIDE */}
+      <div className="navbar-right">
 
         <div className="navbar-user-info">
 
@@ -45,9 +66,8 @@ export default function Navbar({ collapsed, setCollapsed }) {
 
         </div>
 
-
         <div className="navbar-avatar">
-          {userName.charAt(0).toUpperCase()}
+          {firstLetter}
         </div>
 
       </div>
